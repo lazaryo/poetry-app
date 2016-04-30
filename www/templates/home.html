@@ -1,0 +1,45 @@
+<ion-view view-title="Poetry">
+  <ion-content>
+  	<div class="home">
+    	<blockquote>
+	    	Poetry is a rhythmical form of words which express an imaginative-emotional-intellectual experience of the writer’s… in such a way that it creates a similar experience in the mind of his reader or listener.
+	    	<span>Clive Sansom</span>
+	    </blockquote>
+
+	    <p id="home-desc">Poetry enables you to view poetry written by writers everywhere. In the app you can also submit your own poetry by filling out the respected forms. below are the current poem forms available.</p>
+
+	    <div class="row">
+	  		<div class="col col-50">
+	  			<a class="button button-block button-dark button-outline"
+	  			   href="#/app/form/Haiku"
+	  			   ng-click="getTitle('Haiku')">Haikus</a>
+	  		</div>
+	  		<div class="col col-50">
+	  			<a class="button button-block button-dark button-outline"
+	  			   href="#/app/form/Prose"
+	  			   ng-click="getTitle('Prose')">Prose Poetry</a>
+	  		</div>
+		</div>
+
+	    <div class="row">
+	  		<div class="col col-50">
+	  			<a class="button button-block button-dark button-outline"
+	  			   href="#/app/form/Pantoum"
+	  			   ng-click="getTitle('Pantoum')">Pantoums</a>
+	  		</div>
+	  		<div class="col col-50">
+	  			<a class="button button-block button-dark button-outline"
+	  			   href="#/app/random">Random</a>
+	  		</div>
+		</div>
+
+		<div class="row">
+	  		<div class="col">
+	  			<a class="button button-block button-dark button-outline" ng-disabled="true">More forms coming soon</a>
+	  		</div>
+		</div>
+    </div>
+  </ion-content>
+</ion-view>
+
+<iconate-include></iconate-include>
