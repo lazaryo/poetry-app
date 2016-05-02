@@ -6,10 +6,27 @@ poetry_prototype.controller('fireCtrl', function($scope, $firebaseArray) {
   return $scope.literature
 });
 
-poetry_prototype.controller('coverCtrl', function($scope, $firebaseArray) {
+poetry_prototype.controller('coverCtrl', function($scope, $firebaseArray, $firebaseObject) {
   $scope.newPhoto = function() {
     var ref = new Firebase('https://poetry-prototype.firebaseio.com/images/');
-    $scope.ref = $firebaseArray(ref);
+    ref.once("value", function(snapshot) {
+      var a = snapshot.numChildren();
+      var i = 0;
+      var rand = Math.floor(Math.random() * a);
+      snapshot.forEach(function(snapshot) {
+        if (i == rand) {
+          $scope.simg = snapshot.val();
+          if ($scope.simg.verified !== true) {
+            console.log($scope.simg.verified);
+            console.log('Image has not been verified.');
+            $scope.newPhoto();
+          } else if ($scope.simg.verified == true) {
+            return $scope.simg
+          }
+        }
+        i++;
+      });
+    });
   };
   $scope.newPhoto();
 });

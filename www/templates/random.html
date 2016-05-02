@@ -1,12 +1,12 @@
-<ion-view view-title="{{given.title}}" ng-init="cP()">
+<ion-view view-title="{{given.title}}">
   <ion-content ng-controller="coverCtrl">
   		<ion-refresher
   			spinner="ripple"
     		pulling-text="New Poem"
     		on-refresh="doRefresh(); newPhoto()">
   		</ion-refresher>
-  		<div class="cover-photo" ng-repeat="s in ref" ng-show="s.verified">
-  			<img ng-src="{{s.img}}">
+  		<div class="cover-photo">
+			<img ng-src="{{simg.img}}">
   		</div>
   	<div id="random" class="list card">
 	    <div class="item item-avatar">
