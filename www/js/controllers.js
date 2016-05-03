@@ -62,14 +62,6 @@ poetry_prototype.controller('PlaylistCtrl', function($scope, $stateParams, playl
   $scope.idService = idService; 
 });
 
-poetry_prototype.service('playlistService', function() {
-  this.selectedPlaylist;
-});
-
-poetry_prototype.service('idService', function() {
-  this.selectedPoem;
-});
-
 poetry_prototype.controller('randomCtrl', function($scope, $http, $ionicScrollDelegate, $timeout) {
   $scope.given = {
       "title" : "Untitled",

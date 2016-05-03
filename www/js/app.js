@@ -1,4 +1,4 @@
-var poetry_prototype = angular.module('poetry', ['ionic', 'poetry.controllers', 'ngCordova', 'firebase']);
+var poetry_prototype = angular.module('poetry', ['ionic', 'poetry.controllers', 'poetry.services', 'ngCordova', 'firebase']);
 
 poetry_prototype.run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {
