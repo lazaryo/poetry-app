@@ -1,15 +1,17 @@
-<ion-view view-title="{{given.title}}">
+<ion-view view-title="{{given.title}}" ng-init="newPhoto()">
   <ion-content ng-controller="coverCtrl">
   		<ion-refresher
   			spinner="ripple"
     		pulling-text="New Poem"
     		on-refresh="doRefresh(); newPhoto()">
   		</ion-refresher>
+
+  	<div id="random">
   		<div class="cover-photo">
 			<img ng-src="{{simg.img}}">
   		</div>
-  	<div id="random" class="list card">
-	    <div class="item item-avatar">
+  		<div class="list card">
+  		<div class="item item-avatar">
 	    		<h2>{{given.title}}</h2>
 	    		<p>{{given.author}}</p>
 	    	</div>
@@ -42,6 +44,7 @@
 				</svg>
 			</div>
 	    </div>
+		</div>
     </div>
     	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
