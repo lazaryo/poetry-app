@@ -35,8 +35,8 @@ poetry_prototype.controller('PlaylistsCtrl', function($scope, playlistService, i
   $scope.groups = [
                     {
                       "name": "Form Types",
-                      "items": ["Haiku", "Prose", "Pantoum"],
-                      "id": [1, 2, 3]
+                      "items": ["Haiku", "Prose", "Pantoum", "Triolet"],
+                      "id": [1, 2, 3, 4]
                     }
                   ]
 
@@ -121,6 +121,15 @@ poetry_prototype.controller('ExCtrl', function($scope, $timeout, $q, $ionicPopup
       content: '<b>Satisfied</b><br>You took a wrong turn.<br>Now we are both dead.<br>The voices are getting louder.<br>Did you do this on purpose?<br><br>Now we are both dead.<br>Our bodies begin to decay.<br>Did you do this on purpose?<br>At least I was with you.<br><br>Our bodies begin to decay.<br>You took a wrong turn.<br>At least I was with you.<br>The voices are getting louder.<br>by: <b>Malik Hemphill</b>'
     });
   };
+
+  $scope.trioletAlert = function() {
+    $ionicPopup.alert({
+      title: 'Triolet Example',
+      okText: 'close',
+      okType: 'button-dark',
+      content: '<b>How Great My Grief</b><br>How great my grief, my joys how few,<br>Since first it was my fate to know thee!<br>- Have the slow years not brought to view<br>How great my grief, my joys how few,<br>Nor memory shaped old times anew,<br>    Nor loving-kindness helped to show thee<br>How great my grief, my joys how few,<br>    Since first it was my fate to know thee?<br>by: <b>Thomas Hardy</b>'
+    });
+  };
 });
 
 poetry_prototype.controller('PoemCtrl', function($scope, $ionicModal, $timeout, $http, $ionicLoading) {
@@ -130,6 +139,7 @@ poetry_prototype.controller('PoemCtrl', function($scope, $ionicModal, $timeout, 
   $scope.haikuData = {};
   $scope.proseData = {};
   $scope.pantoumData = {};
+  $scope.trioletData = {};
   $scope.poetryData = {};
 
   $scope.show = function() {
@@ -245,6 +255,41 @@ poetry_prototype.controller('PoemCtrl', function($scope, $ionicModal, $timeout, 
 
     $scope.doSubmit();
   }
+  $scope.trioletSubmit = function() {
+    $scope.show();
+    if (!$scope.trioletData.title && !$scope.trioletData.author) {
+      $scope.trioletData.title = 'Untitled';
+      $scope.trioletData.author = 'Anonymous';
+    } else if (!$scope.trioletData.title && $scope.trioletData.author) {      
+      $scope.trioletData.title = 'Untitled';
+    } else if ($scope.trioletData.title && !$scope.trioletData.author) {
+      $scope.trioletData.author = 'Anonymous';
+    }
+
+    $scope.trioletData.triolet1 = $scope.trioletData.triolet1; //from line 2
+    $scope.trioletData.triolet4 = $scope.trioletData.triolet1; //from line 1
+    $scope.trioletData.triolet7 = $scope.trioletData.triolet1; //from line 8
+    $scope.trioletData.triolet8 = $scope.trioletData.triolet2; //from line 2
+
+    var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
+    $scope.poetryData.title = $scope.trioletData.title;
+    $scope.poetryData.author = $scope.trioletData.author;
+    $scope.poetryData.formType = "Triolet";
+    $scope.poetryData.lines = {};
+    $scope.poetryData.lines = {
+      "line1" : $scope.trioletData.triolet1,
+      "line2" : $scope.trioletData.triolet2,
+      "line3" : $scope.trioletData.triolet3,
+      "line4" : $scope.trioletData.triolet4,
+      "line5" : $scope.trioletData.triolet5,
+      "line6" : $scope.trioletData.triolet6,
+      "line7" : $scope.trioletData.triolet7,
+      "line8" : $scope.trioletData.triolet8
+    };
+    oui.push($scope.poetryData);
+
+    $scope.doSubmit();
+  }
 
   $scope.doSubmit = function() {
     $timeout(function() {
@@ -252,6 +297,7 @@ poetry_prototype.controller('PoemCtrl', function($scope, $ionicModal, $timeout, 
       $scope.haikuData = {};
       $scope.proseData = {};
       $scope.pantoumData = {};
+      $scope.trioletData = {};
       $ionicLoading.hide();
       $scope.closeSubmit();
     }, 1000);
@@ -262,6 +308,7 @@ var description = [
   {
     Haiku: 'Haikus are a traditional form of Japanese poetry. Haiku poems consist of 3 lines. The first and last lines of a Haiku have 5 syllables and the middle line has 7 syllables.',
     Pantoum: 'A Pantoum is a type of poem with a verse form consisting of three stanzas. It has a set pattern within the poem of repetitive lines.',
-    Prose: 'Prose poetry is poetry written in prose instead of using verse but preserving poetic qualities such as heightened imagery, parataxis and emotional effects.'
+    Prose: 'Prose poetry is poetry written in prose instead of using verse but preserving poetic qualities such as heightened imagery, parataxis and emotional effects.',
+    Triolet: 'A triolet is a stanza poem of eight lines. Its rhyme scheme is ABaAabAB and often all lines are in iambic tetrameter. The form stems from medieval French poetry - the earliest written examples are from the late 13th century.'
   } 
 ]

@@ -15,12 +15,14 @@
       <option value="Haiku" selected>Haiku</option>
       <option value="Prose">Prose</option>
       <option value="Pantoum">Pantoum</option>
+      <option value="Triolet">Triolet</option>
     </select>
   </label>
 
   <p class="desc" ng-show="dropdown=='Haiku'">{{description[0].Haiku}}</p>
   <p class="desc" ng-show="dropdown=='Prose'">{{description[0].Prose}}</p>
   <p class="desc" ng-show="dropdown=='Pantoum'">{{description[0].Pantoum}}</p>
+  <p class="desc" ng-show="dropdown=='Triolet'">{{description[0].Triolet}}</p>
   
   <label class="item" ng-controller="ExCtrl" ng-show="dropdown=='Haiku'">
     <button class="button button-block button-dark button-outline" ng-click="haikuAlert()">Example</button>
@@ -30,6 +32,9 @@
   </label>
   <label class="item" ng-controller="ExCtrl" ng-show="dropdown=='Pantoum'">
     <button class="button button-block button-dark button-outline" ng-click="pantoumAlert()">Example</button>
+  </label>
+  <label class="item" ng-controller="ExCtrl" ng-show="dropdown=='Triolet'">
+    <button class="button button-block button-dark button-outline" ng-click="trioletAlert()">Example</button>
   </label>
 
     <form 
@@ -149,6 +154,56 @@
           <label class="item item-input item-floating-label">
             <span class="input-label">Line 12</span>
             <input type="text" ng-model="pantoumData.pantoum1" placeholder="Line 12">
+          </label>
+        </div>
+      </div>
+      <label class="item">
+        <button class="button button-block button-dark button-outline" type="submit">Submit</button>
+      </label>
+    </form> 
+
+    <form name="triolet" ng-show="dropdown=='Triolet'" ng-submit="trioletSubmit()">
+      <div id="triolet-submit">
+        <div class="list">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Title</span>
+            <input ng-model="trioletData.title" type="text" placeholder="Title">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Author</span>
+            <input ng-model="trioletData.author" type="text" placeholder="Author">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 1</span>
+            <input type="text" ng-model="trioletData.triolet1" placeholder="Line 1" key-filter>
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 2</span>
+            <input type="text" ng-model="trioletData.triolet2" placeholder="Line 2">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 3</span>
+            <input type="text" ng-model="trioletData.triolet3" placeholder="Line 3">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 4</span>
+            <input type="text" ng-model="trioletData.triolet1" placeholder="Line 4">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 5</span>
+            <input type="text" ng-model="trioletData.triolet5" placeholder="Line 5">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 6</span>
+            <input type="text" ng-model="trioletData.triolet6" placeholder="Line 6">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 7</span>
+            <input type="text" ng-model="trioletData.triolet1" placeholder="Line 7">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Line 8</span>
+            <input type="text" ng-model="trioletData.triolet2" placeholder="Line 8">
           </label>
         </div>
       </div>

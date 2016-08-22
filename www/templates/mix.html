@@ -52,6 +52,23 @@
 				</p>
 			</div>
 		</div>
+    	<div class="list card" ng-repeat="p in literature" ng-show="p.formType=='Triolet'">
+	    	<div class="item item-avatar">
+	    		<h2>{{p.title}}</h2>
+	    		<p>{{p.author}}</p>
+	    	</div>
+	    	
+	    	<div class="item item-body">
+	    		<p>
+			  		<span ng-repeat="(key, value) in p.lines" 
+			  			  style="margin: 0">
+			  			  <br ng-show="p.formType=='Prose'" ng-if="!(($index + 1) % 2)">
+			  			  {{value}}<br>
+			  			  <br ng-show="p.formType=='Pantoum'" ng-if="!(($index + 1) % 4)">
+			  		</span>
+				</p>
+			</div>
+		</div>
   	</div>
   </ion-content>
 </ion-view>
