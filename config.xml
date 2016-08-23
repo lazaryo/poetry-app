@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.poetryprototype451310" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>poetry_prototype</name>
+  <name>into_existence</name>
   <description>
         Poetry collection app with the ability for users to add their own poems!
     </description>
-  <author email="lazaryr@gmail.com" href="http://lazaryo.tumblr.com/">
+  <author email="info@malikdh.com" href="http://malikdh.com/">
       Malik Hemphill
     </author>
   <content src="index.html"/>
