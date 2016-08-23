@@ -1,6 +1,6 @@
 var poetry_prototype = angular.module('poetry', ['ionic', 'poetry.controllers', 'poetry.services', 'ngCordova', 'firebase']);
 
-poetry_prototype.run(function($ionicPlatform, $cordovaStatusbar) {
+poetry_prototype.run(function($ionicPlatform, $cordovaStatusbar, $rootScope) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
