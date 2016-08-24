@@ -50,6 +50,16 @@ poetry_prototype.config(function($stateProvider, $urlRouterProvider) {
       }
   })
 
+ .state('app.credit', {
+      url: '/credit',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/credit.html',
+          controller: 'creditCtrl'
+        }
+      }
+  })
+
   .state('app.mix', {
       url: '/mix',
       views: {

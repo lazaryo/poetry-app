@@ -6,6 +6,10 @@ poetry_prototype.controller('fireCtrl', function($scope, $firebaseArray) {
   return $scope.literature
 });
 
+poetry_prototype.controller('creditCtrl', function($scope, $firebaseArray, $firebaseObject) {
+  console.log('Malik Hemphill');
+});
+
 poetry_prototype.controller('coverCtrl', function($scope, $firebaseArray, $firebaseObject) {
   $scope.newPhoto = function() {
     var ref = new Firebase('https://poetry-prototype.firebaseio.com/images/');
@@ -99,7 +103,7 @@ poetry_prototype.controller('ExCtrl', function($scope, $timeout, $q, $ionicPopup
     $ionicPopup.alert({
       title: 'Haiku Example',
       okText: 'close',
-      okType: 'button-dark',
+      okType: 'button-calm',
       content: '<b>Untitled</b><br>In the cicada\'s cry<br>No sign can foretell<br>How soon it must die.<br>by: <b>Matsuo Bashō</b>'
     })
   };
@@ -108,7 +112,7 @@ poetry_prototype.controller('ExCtrl', function($scope, $timeout, $q, $ionicPopup
     $ionicPopup.alert({
       title: 'Prose Example',
       okText: 'close',
-      okType: 'button-dark',
+      okType: 'button-calm',
       content: '<b>Exoskeletal Gesture</b><br>Venom erupted from the trees when the vital system of the brook reset its serum stem. Can suspended snakes compose a more careless music? Do two detached wings count as an exoskeletal gesture? A hiss is the sound the sky would make if these leaves revived their flight.<br>by: <b>Eric Baus</b>'
     });
   };
@@ -117,7 +121,7 @@ poetry_prototype.controller('ExCtrl', function($scope, $timeout, $q, $ionicPopup
     $ionicPopup.alert({
       title: 'Pantoum Example',
       okText: 'close',
-      okType: 'button-dark',
+      okType: 'button-calm',
       content: '<b>Satisfied</b><br>You took a wrong turn.<br>Now we are both dead.<br>The voices are getting louder.<br>Did you do this on purpose?<br><br>Now we are both dead.<br>Our bodies begin to decay.<br>Did you do this on purpose?<br>At least I was with you.<br><br>Our bodies begin to decay.<br>You took a wrong turn.<br>At least I was with you.<br>The voices are getting louder.<br>by: <b>Malik Hemphill</b>'
     });
   };
@@ -126,7 +130,7 @@ poetry_prototype.controller('ExCtrl', function($scope, $timeout, $q, $ionicPopup
     $ionicPopup.alert({
       title: 'Triolet Example',
       okText: 'close',
-      okType: 'button-dark',
+      okType: 'button-calm',
       content: '<b>How Great My Grief</b><br>How great my grief, my joys how few,<br>Since first it was my fate to know thee!<br>- Have the slow years not brought to view<br>How great my grief, my joys how few,<br>Nor memory shaped old times anew,<br>    Nor loving-kindness helped to show thee<br>How great my grief, my joys how few,<br>    Since first it was my fate to know thee?<br>by: <b>Thomas Hardy</b>'
     });
   };
