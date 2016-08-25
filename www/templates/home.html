@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view ng-controller="homeCtrl">
 	<ion-nav-title>
 		<img style='height: 100%' src='img/logo-transparent.png'>
 	</ion-nav-title>
@@ -10,6 +10,8 @@
 	    </blockquote>
 
 	    <p id="home-desc">Into Existence enables you to view poetry written by writers everywhere. In the app you can also submit your own poetry by filling out the respected forms. Below are the current poem forms available.</p>
+
+	    <div id="message">{{message}}</div>
 
 	    <div class="row">
 	  		<div class="col col-50">

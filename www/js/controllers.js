@@ -10,6 +10,17 @@ poetry_prototype.controller('creditCtrl', function($scope, $firebaseArray, $fire
   console.log('Malik Hemphill');
 });
 
+poetry_prototype.controller('homeCtrl', function($scope, $firebaseArray, $firebaseObject) {
+  var ref = new Firebase('https://poetry-prototype.firebaseio.com/daily/message/');
+    ref.on("value", function(snapshot) {
+      var message = snapshot.val();
+      function writeIt() {
+        document.getElementById('message').innerHTML = '<h1>Daily Message</h1>' + message;
+      }
+      $scope.message = writeIt();
+    });
+});
+
 poetry_prototype.controller('coverCtrl', function($scope, $firebaseArray, $firebaseObject) {
   $scope.newPhoto = function() {
     var ref = new Firebase('https://poetry-prototype.firebaseio.com/images/');

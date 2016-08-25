@@ -22,10 +22,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 
 // Adding Futura font
-@include font-face(Futura, "../fonts/Futura", normal, normal);
+@include font-face(Futura, "../fonts/Futura/Futura", normal, normal);
+
+// Adding Metrica font
+@include font-face(Metrica, "../fonts/Metrica/metrica", normal, normal);
+
+// Adding CaveatBrush font
+@include font-face(CaveatBrush, "../fonts/CaveatBrush/CaveatBrush", normal, normal);
+
+// Adding Yellowtail font
+@include font-face(Yellowtail, "../fonts/Yellowtail/Yellowtail", normal, normal);
 
 // Adding FontAwesome font
-@include font-face(fontawesome, "../fonts/fontawesome", normal, normal);
+@include font-face(fontawesome, "../fonts/FontAwesome/fontawesome", normal, normal);
 
 * {
 	margin: 0;
