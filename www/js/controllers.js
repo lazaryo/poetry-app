@@ -1,329 +1,347 @@
 var poetry_prototype = angular.module('poetry.controllers', ['ionic', 'firebase']);
 
-poetry_prototype.controller('fireCtrl', function($scope, $firebaseArray) {
-  var poetry = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
-  $scope.literature = $firebaseArray(poetry);
-  return $scope.literature
+poetry_prototype.controller('fireCtrl', function ($scope, $firebaseArray) {
+    var poetry = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
+    $scope.literature = $firebaseArray(poetry);
+    return $scope.literature
 });
 
-poetry_prototype.controller('creditCtrl', function($scope, $firebaseArray, $firebaseObject) {
-  console.log('Malik Hemphill');
+poetry_prototype.controller('creditCtrl', function ($scope, $firebaseArray, $firebaseObject) {
+    console.log('Malik Hemphill');
 });
 
-poetry_prototype.controller('homeCtrl', function($scope, $firebaseArray, $firebaseObject) {
-  var ref = new Firebase('https://poetry-prototype.firebaseio.com/daily/message/');
-    ref.on("value", function(snapshot) {
-      var message = snapshot.val();
-      function writeIt() {
-        document.getElementById('message').innerHTML = '<h1>Daily Message</h1>' + message;
-      }
-      $scope.message = writeIt();
-    });
-});
+poetry_prototype.controller('homeCtrl', function ($scope, $firebaseArray, $firebaseObject) {
+    var ref = new Firebase('https://poetry-prototype.firebaseio.com/daily/message/');
+    ref.on("value", function (snapshot) {
+        var message = snapshot.val();
 
-poetry_prototype.controller('coverCtrl', function($scope, $firebaseArray, $firebaseObject) {
-  $scope.newPhoto = function() {
-    var ref = new Firebase('https://poetry-prototype.firebaseio.com/images/');
-    ref.once("value", function(snapshot) {
-      var a = snapshot.numChildren();
-      var i = 0;
-      var rand = Math.floor(Math.random() * a);
-      snapshot.forEach(function(snapshot) {
-        if (i == rand) {
-          $scope.simg = snapshot.val();
-          if ($scope.simg.verified !== true) {
-            console.log($scope.simg.verified);
-            console.log('Image has not been verified.');
-            $scope.newPhoto();
-          } else if ($scope.simg.verified == true) {
-            return $scope.simg
-          }
+        function writeIt() {
+            var made = angular.element(document.querySelector('#message'));
+            made.html('');
+            made.append('<h1>Daily Message</h1>' + message);
         }
-        i++;
-      });
+        $scope.message = writeIt();
     });
-  };
-  $scope.newPhoto();
+
+    $scope.hmm = true;
+    
+    $scope.changeIt = function () {
+        if ($scope.hmm == true) {
+            $scope.hmm = false;
+            console.log($scope.hmm);
+            return $scope.hmm
+        } else {
+            $scope.hmm = true;
+            console.log($scope.hmm);
+            return $scope.hmm
+        }
+    }
+  
 });
 
-poetry_prototype.controller('PlaylistsCtrl', function($scope, playlistService, idService) {
-  $scope.groups = [
-                    {
-                      "name": "Form Types",
-                      "items": ["Haiku", "Prose", "Pantoum", "Triolet"],
-                      "id": [1, 2, 3, 4]
+poetry_prototype.controller('coverCtrl', function ($scope, $firebaseArray, $firebaseObject) {
+    $scope.newPhoto = function () {
+        var ref = new Firebase('https://poetry-prototype.firebaseio.com/images/');
+        ref.once("value", function (snapshot) {
+            var a = snapshot.numChildren();
+            var i = 0;
+            var rand = Math.floor(Math.random() * a);
+            snapshot.forEach(function (snapshot) {
+                if (i == rand) {
+                    $scope.simg = snapshot.val();
+                    if ($scope.simg.verified !== true) {
+                        console.log($scope.simg.verified);
+                        console.log('Image has not been verified.');
+                        $scope.newPhoto();
+                    } else if ($scope.simg.verified == true) {
+                        return $scope.simg
+                    }
+                }
+                i++;
+            });
+        });
+    };
+    $scope.newPhoto();
+});
+
+poetry_prototype.controller('PlaylistsCtrl', function ($scope, playlistService, idService) {
+    $scope.groups = [
+        {
+            "name": "Form Types",
+            "items": ["Haiku", "Prose", "Pantoum", "Triolet"],
+            "id": [1, 2, 3, 4]
                     }
                   ]
 
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
-    }
-  };
-  $scope.isGroupShown = function(group) {
-    return $scope.shownGroup === group;
-  };
+    $scope.toggleGroup = function (group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
+    };
+    $scope.isGroupShown = function (group) {
+        return $scope.shownGroup === group;
+    };
 
-  $scope.getTitle = function(val, val2){
-    playlistService.selectedPlaylist = val;
-    idService.selectedPoem = val2;
-  }
+    $scope.getTitle = function (val, val2) {
+        playlistService.selectedPlaylist = val;
+        idService.selectedPoem = val2;
+    }
 });
 
-poetry_prototype.controller('PlaylistCtrl', function($scope, $stateParams, playlistService, idService) {
-  $scope.playlistService = playlistService; 
-  $scope.idService = idService; 
+poetry_prototype.controller('PlaylistCtrl', function ($scope, $stateParams, playlistService, idService) {
+    $scope.playlistService = playlistService;
+    $scope.idService = idService;
 });
 
-poetry_prototype.controller('randomCtrl', function($scope, $http, $ionicScrollDelegate, $timeout) {
-  $scope.given = {
-      "title" : "Untitled",
-      "author" : "Malik Hemphill",
-      "formType" : "Haiku",
-      "lines" : {
-        "line1" : "This is it.",
-        "line2" : "Are you sure?",
-        "line3" : "I am sure!"
-      }
-  };
+poetry_prototype.controller('randomCtrl', function ($scope, $http, $ionicScrollDelegate, $timeout) {
+    $scope.given = {
+        "title": "Untitled",
+        "author": "Malik Hemphill",
+        "formType": "Haiku",
+        "lines": {
+            "line1": "This is it.",
+            "line2": "Are you sure?",
+            "line3": "I am sure!"
+        }
+    };
 
-  $scope.doRefresh = function() {
-    console.log('Refreshing!');
-    $timeout( function() {
-      $scope.cP();
-      //Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
-    }, 750);
-  };
+    $scope.doRefresh = function () {
+        console.log('Refreshing!');
+        $timeout(function () {
+            $scope.cP();
+            //Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
+        }, 750);
+    };
 
-  $scope.cP = function(){
-    $ionicScrollDelegate.scrollTop();
-    var rn = Math.floor(Math.random() * $scope.literature.length);
-    $scope.given.title = $scope.literature[rn].title;
-    $scope.given.author = $scope.literature[rn].author;
-    $scope.given.formType = $scope.literature[rn].formType;
-    $scope.given.lines = $scope.literature[rn].lines;
-    return $scope.given
-  }
+    $scope.cP = function () {
+        $ionicScrollDelegate.scrollTop();
+        var rn = Math.floor(Math.random() * $scope.literature.length);
+        $scope.given.title = $scope.literature[rn].title;
+        $scope.given.author = $scope.literature[rn].author;
+        $scope.given.formType = $scope.literature[rn].formType;
+        $scope.given.lines = $scope.literature[rn].lines;
+        return $scope.given
+    }
 });
 
-poetry_prototype.controller('ExCtrl', function($scope, $timeout, $q, $ionicPopup) {
-  $scope.haikuAlert = function() {
-    $ionicPopup.alert({
-      title: 'Haiku Example',
-      okText: 'close',
-      okType: 'button-calm',
-      content: '<b>Untitled</b><br>In the cicada\'s cry<br>No sign can foretell<br>How soon it must die.<br>by: <b>Matsuo Bashō</b>'
-    })
-  };
+poetry_prototype.controller('ExCtrl', function ($scope, $timeout, $q, $ionicPopup) {
+    $scope.haikuAlert = function () {
+        $ionicPopup.alert({
+            title: 'Haiku Example',
+            okText: 'close',
+            okType: 'button-calm',
+            content: '<b>Untitled</b><br>In the cicada\'s cry<br>No sign can foretell<br>How soon it must die.<br>by: <b>Matsuo Bashō</b>'
+        })
+    };
 
-  $scope.proseAlert = function() {
-    $ionicPopup.alert({
-      title: 'Prose Example',
-      okText: 'close',
-      okType: 'button-calm',
-      content: '<b>Exoskeletal Gesture</b><br>Venom erupted from the trees when the vital system of the brook reset its serum stem. Can suspended snakes compose a more careless music? Do two detached wings count as an exoskeletal gesture? A hiss is the sound the sky would make if these leaves revived their flight.<br>by: <b>Eric Baus</b>'
-    });
-  };
+    $scope.proseAlert = function () {
+        $ionicPopup.alert({
+            title: 'Prose Example',
+            okText: 'close',
+            okType: 'button-calm',
+            content: '<b>Exoskeletal Gesture</b><br>Venom erupted from the trees when the vital system of the brook reset its serum stem. Can suspended snakes compose a more careless music? Do two detached wings count as an exoskeletal gesture? A hiss is the sound the sky would make if these leaves revived their flight.<br>by: <b>Eric Baus</b>'
+        });
+    };
 
-  $scope.pantoumAlert = function() {
-    $ionicPopup.alert({
-      title: 'Pantoum Example',
-      okText: 'close',
-      okType: 'button-calm',
-      content: '<b>Satisfied</b><br>You took a wrong turn.<br>Now we are both dead.<br>The voices are getting louder.<br>Did you do this on purpose?<br><br>Now we are both dead.<br>Our bodies begin to decay.<br>Did you do this on purpose?<br>At least I was with you.<br><br>Our bodies begin to decay.<br>You took a wrong turn.<br>At least I was with you.<br>The voices are getting louder.<br>by: <b>Malik Hemphill</b>'
-    });
-  };
+    $scope.pantoumAlert = function () {
+        $ionicPopup.alert({
+            title: 'Pantoum Example',
+            okText: 'close',
+            okType: 'button-calm',
+            content: '<b>Satisfied</b><br>You took a wrong turn.<br>Now we are both dead.<br>The voices are getting louder.<br>Did you do this on purpose?<br><br>Now we are both dead.<br>Our bodies begin to decay.<br>Did you do this on purpose?<br>At least I was with you.<br><br>Our bodies begin to decay.<br>You took a wrong turn.<br>At least I was with you.<br>The voices are getting louder.<br>by: <b>Malik Hemphill</b>'
+        });
+    };
 
-  $scope.trioletAlert = function() {
-    $ionicPopup.alert({
-      title: 'Triolet Example',
-      okText: 'close',
-      okType: 'button-calm',
-      content: '<b>How Great My Grief</b><br>How great my grief, my joys how few,<br>Since first it was my fate to know thee!<br>- Have the slow years not brought to view<br>How great my grief, my joys how few,<br>Nor memory shaped old times anew,<br>    Nor loving-kindness helped to show thee<br>How great my grief, my joys how few,<br>    Since first it was my fate to know thee?<br>by: <b>Thomas Hardy</b>'
-    });
-  };
+    $scope.trioletAlert = function () {
+        $ionicPopup.alert({
+            title: 'Triolet Example',
+            okText: 'close',
+            okType: 'button-calm',
+            content: '<b>How Great My Grief</b><br>How great my grief, my joys how few,<br>Since first it was my fate to know thee!<br>- Have the slow years not brought to view<br>How great my grief, my joys how few,<br>Nor memory shaped old times anew,<br>    Nor loving-kindness helped to show thee<br>How great my grief, my joys how few,<br>    Since first it was my fate to know thee?<br>by: <b>Thomas Hardy</b>'
+        });
+    };
 });
 
-poetry_prototype.controller('PoemCtrl', function($scope, $ionicModal, $timeout, $http, $ionicLoading) {
-  $scope.dropdown = 'Haiku';
-  $scope.description = description;
-  
-  $scope.haikuData = {};
-  $scope.proseData = {};
-  $scope.pantoumData = {};
-  $scope.trioletData = {};
-  $scope.poetryData = {};
+poetry_prototype.controller('PoemCtrl', function ($scope, $ionicModal, $timeout, $http, $ionicLoading) {
+    $scope.dropdown = 'Haiku';
+    $scope.description = description;
 
-  $scope.show = function() {
-    $ionicLoading.show({
-      template: '<div class="spinnerCenter"><ion-spinner icon="ripple" class="spinner-light"></ion-spinner></div>',
-      noBackdrop: true
+    $scope.haikuData = {};
+    $scope.proseData = {};
+    $scope.pantoumData = {};
+    $scope.trioletData = {};
+    $scope.poetryData = {};
+
+    $scope.show = function () {
+        $ionicLoading.show({
+            template: '<div class="spinnerCenter"><ion-spinner icon="ripple" class="spinner-light"></ion-spinner></div>',
+            noBackdrop: true
+        });
+    };
+    $scope.hide = function () {
+        $ionicLoading.hide();
+    };
+
+
+    $ionicModal.fromTemplateUrl('templates/submit.html', {
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal = modal;
     });
-  };
-  $scope.hide = function(){
-    $ionicLoading.hide();
-  };
 
+    $scope.closeSubmit = function () {
+        $scope.modal.hide();
+    };
 
-  $ionicModal.fromTemplateUrl('templates/submit.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+    $scope.addPoem = function () {
+        $scope.modal.show();
+    };
 
-  $scope.closeSubmit = function() {
-    $scope.modal.hide();
-  };
+    $scope.haikuSubmit = function () {
+        $scope.show();
+        if (!$scope.haikuData.title && !$scope.haikuData.author) {
+            $scope.haikuData.title = 'Untitled';
+            $scope.haikuData.author = 'Anonymous';
+        } else if (!$scope.haikuData.title && $scope.haikuData.author) {
+            $scope.haikuData.title = 'Untitled';
+        } else if ($scope.haikuData.title && !$scope.haikuData.author) {
+            $scope.haikuData.author = 'Anonymous';
+        }
 
-  $scope.addPoem = function() {
-    $scope.modal.show();
-  };
+        var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
+        $scope.poetryData.title = $scope.haikuData.title;
+        $scope.poetryData.author = $scope.haikuData.author;
+        $scope.poetryData.formType = "Haiku";
+        $scope.poetryData.lines = {
+            "line1": $scope.haikuData.line1,
+            "line2": $scope.haikuData.line2,
+            "line3": $scope.haikuData.line3
+        };
+        oui.push($scope.poetryData);
 
-  $scope.haikuSubmit = function() {
-    $scope.show();
-    if (!$scope.haikuData.title && !$scope.haikuData.author) {
-      $scope.haikuData.title = 'Untitled';
-      $scope.haikuData.author = 'Anonymous';
-    } else if (!$scope.haikuData.title && $scope.haikuData.author) {      
-      $scope.haikuData.title = 'Untitled';
-    } else if ($scope.haikuData.title && !$scope.haikuData.author) {
-      $scope.haikuData.author = 'Anonymous';
+        $scope.doSubmit();
     }
 
-    var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
-    $scope.poetryData.title = $scope.haikuData.title;
-    $scope.poetryData.author = $scope.haikuData.author;
-    $scope.poetryData.formType = "Haiku";
-    $scope.poetryData.lines = {
-      "line1" : $scope.haikuData.line1,
-      "line2" : $scope.haikuData.line2,
-      "line3" : $scope.haikuData.line3
-    };
-    oui.push($scope.poetryData);
+    $scope.proseSubmit = function () {
+        $scope.show();
+        if (!$scope.proseData.title && !$scope.proseData.author) {
+            $scope.proseData.title = 'Untitled';
+            $scope.proseData.author = 'Anonymous';
+        } else if (!$scope.proseData.title && $scope.proseData.author) {
+            $scope.proseData.title = 'Untitled';
+        } else if ($scope.proseData.title && !$scope.proseData.author) {
+            $scope.proseData.author = 'Anonymous';
+        }
+        var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
+        $scope.poetryData.title = $scope.proseData.title;
+        $scope.poetryData.author = $scope.proseData.author;
+        $scope.poetryData.formType = "Prose";
+        $scope.poetryData.lines = {
+            "line1": $scope.proseData.bodyCopy
+        };
+        oui.push($scope.poetryData);
 
-    $scope.doSubmit();
-  }
-
-  $scope.proseSubmit = function() {
-    $scope.show();
-    if (!$scope.proseData.title && !$scope.proseData.author) {
-      $scope.proseData.title = 'Untitled';
-      $scope.proseData.author = 'Anonymous';
-    } else if (!$scope.proseData.title && $scope.proseData.author) {      
-      $scope.proseData.title = 'Untitled';
-    } else if ($scope.proseData.title && !$scope.proseData.author) {
-      $scope.proseData.author = 'Anonymous';
-    }
-    var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
-    $scope.poetryData.title = $scope.proseData.title;
-    $scope.poetryData.author = $scope.proseData.author;
-    $scope.poetryData.formType = "Prose";
-    $scope.poetryData.lines = {
-      "line1" : $scope.proseData.bodyCopy
-    };
-    oui.push($scope.poetryData);
-
-    $scope.doSubmit();
-  }
-
-  $scope.pantoumSubmit = function() {
-    $scope.show();
-    if (!$scope.pantoumData.title && !$scope.pantoumData.author) {
-      $scope.pantoumData.title = 'Untitled';
-      $scope.pantoumData.author = 'Anonymous';
-    } else if (!$scope.pantoumData.title && $scope.pantoumData.author) {      
-      $scope.pantoumData.title = 'Untitled';
-    } else if ($scope.pantoumData.title && !$scope.pantoumData.author) {
-      $scope.pantoumData.author = 'Anonymous';
+        $scope.doSubmit();
     }
 
-    $scope.pantoumData.pantoum5 = $scope.pantoumData.pantoum2; //from line 2
-    $scope.pantoumData.pantoum7 = $scope.pantoumData.pantoum4; //from line 4
-    $scope.pantoumData.pantoum9 = $scope.pantoumData.pantoum6; //from line 6
-    $scope.pantoumData.pantoum10 = $scope.pantoumData.pantoum3; //from line 1
-    $scope.pantoumData.pantoum11 = $scope.pantoumData.pantoum8; //from line 8
-    $scope.pantoumData.pantoum12 = $scope.pantoumData.pantoum1; //from line 2
+    $scope.pantoumSubmit = function () {
+        $scope.show();
+        if (!$scope.pantoumData.title && !$scope.pantoumData.author) {
+            $scope.pantoumData.title = 'Untitled';
+            $scope.pantoumData.author = 'Anonymous';
+        } else if (!$scope.pantoumData.title && $scope.pantoumData.author) {
+            $scope.pantoumData.title = 'Untitled';
+        } else if ($scope.pantoumData.title && !$scope.pantoumData.author) {
+            $scope.pantoumData.author = 'Anonymous';
+        }
 
-    var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
-    $scope.poetryData.title = $scope.pantoumData.title;
-    $scope.poetryData.author = $scope.pantoumData.author;
-    $scope.poetryData.formType = "Pantoum";
-    $scope.poetryData.lines = {};
-    $scope.poetryData.lines = {
-      "line1" : $scope.pantoumData.pantoum1,
-      "line2" : $scope.pantoumData.pantoum2,
-      "line3" : $scope.pantoumData.pantoum3,
-      "line4" : $scope.pantoumData.pantoum4,
-      "line5" : $scope.pantoumData.pantoum5,
-      "line6" : $scope.pantoumData.pantoum6,
-      "line7" : $scope.pantoumData.pantoum7,
-      "line8" : $scope.pantoumData.pantoum8,
-      "line9" : $scope.pantoumData.pantoum9,
-      "lines10" : $scope.pantoumData.pantoum10,
-      "lines11" : $scope.pantoumData.pantoum11,
-      "lines12" : $scope.pantoumData.pantoum12
-    };
-    oui.push($scope.poetryData);
+        $scope.pantoumData.pantoum5 = $scope.pantoumData.pantoum2; //from line 2
+        $scope.pantoumData.pantoum7 = $scope.pantoumData.pantoum4; //from line 4
+        $scope.pantoumData.pantoum9 = $scope.pantoumData.pantoum6; //from line 6
+        $scope.pantoumData.pantoum10 = $scope.pantoumData.pantoum3; //from line 1
+        $scope.pantoumData.pantoum11 = $scope.pantoumData.pantoum8; //from line 8
+        $scope.pantoumData.pantoum12 = $scope.pantoumData.pantoum1; //from line 2
 
-    $scope.doSubmit();
-  }
-  $scope.trioletSubmit = function() {
-    $scope.show();
-    if (!$scope.trioletData.title && !$scope.trioletData.author) {
-      $scope.trioletData.title = 'Untitled';
-      $scope.trioletData.author = 'Anonymous';
-    } else if (!$scope.trioletData.title && $scope.trioletData.author) {      
-      $scope.trioletData.title = 'Untitled';
-    } else if ($scope.trioletData.title && !$scope.trioletData.author) {
-      $scope.trioletData.author = 'Anonymous';
+        var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
+        $scope.poetryData.title = $scope.pantoumData.title;
+        $scope.poetryData.author = $scope.pantoumData.author;
+        $scope.poetryData.formType = "Pantoum";
+        $scope.poetryData.lines = {};
+        $scope.poetryData.lines = {
+            "line1": $scope.pantoumData.pantoum1,
+            "line2": $scope.pantoumData.pantoum2,
+            "line3": $scope.pantoumData.pantoum3,
+            "line4": $scope.pantoumData.pantoum4,
+            "line5": $scope.pantoumData.pantoum5,
+            "line6": $scope.pantoumData.pantoum6,
+            "line7": $scope.pantoumData.pantoum7,
+            "line8": $scope.pantoumData.pantoum8,
+            "line9": $scope.pantoumData.pantoum9,
+            "lines10": $scope.pantoumData.pantoum10,
+            "lines11": $scope.pantoumData.pantoum11,
+            "lines12": $scope.pantoumData.pantoum12
+        };
+        oui.push($scope.poetryData);
+
+        $scope.doSubmit();
+    }
+    $scope.trioletSubmit = function () {
+        $scope.show();
+        if (!$scope.trioletData.title && !$scope.trioletData.author) {
+            $scope.trioletData.title = 'Untitled';
+            $scope.trioletData.author = 'Anonymous';
+        } else if (!$scope.trioletData.title && $scope.trioletData.author) {
+            $scope.trioletData.title = 'Untitled';
+        } else if ($scope.trioletData.title && !$scope.trioletData.author) {
+            $scope.trioletData.author = 'Anonymous';
+        }
+
+        $scope.trioletData.triolet1 = $scope.trioletData.triolet1; //from line 2
+        $scope.trioletData.triolet4 = $scope.trioletData.triolet1; //from line 1
+        $scope.trioletData.triolet7 = $scope.trioletData.triolet1; //from line 8
+        $scope.trioletData.triolet8 = $scope.trioletData.triolet2; //from line 2
+
+        var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
+        $scope.poetryData.title = $scope.trioletData.title;
+        $scope.poetryData.author = $scope.trioletData.author;
+        $scope.poetryData.formType = "Triolet";
+        $scope.poetryData.lines = {};
+        $scope.poetryData.lines = {
+            "line1": $scope.trioletData.triolet1,
+            "line2": $scope.trioletData.triolet2,
+            "line3": $scope.trioletData.triolet3,
+            "line4": $scope.trioletData.triolet4,
+            "line5": $scope.trioletData.triolet5,
+            "line6": $scope.trioletData.triolet6,
+            "line7": $scope.trioletData.triolet7,
+            "line8": $scope.trioletData.triolet8
+        };
+        oui.push($scope.poetryData);
+
+        $scope.doSubmit();
     }
 
-    $scope.trioletData.triolet1 = $scope.trioletData.triolet1; //from line 2
-    $scope.trioletData.triolet4 = $scope.trioletData.triolet1; //from line 1
-    $scope.trioletData.triolet7 = $scope.trioletData.triolet1; //from line 8
-    $scope.trioletData.triolet8 = $scope.trioletData.triolet2; //from line 2
-
-    var oui = new Firebase("https://poetry-prototype.firebaseio.com/poems/");
-    $scope.poetryData.title = $scope.trioletData.title;
-    $scope.poetryData.author = $scope.trioletData.author;
-    $scope.poetryData.formType = "Triolet";
-    $scope.poetryData.lines = {};
-    $scope.poetryData.lines = {
-      "line1" : $scope.trioletData.triolet1,
-      "line2" : $scope.trioletData.triolet2,
-      "line3" : $scope.trioletData.triolet3,
-      "line4" : $scope.trioletData.triolet4,
-      "line5" : $scope.trioletData.triolet5,
-      "line6" : $scope.trioletData.triolet6,
-      "line7" : $scope.trioletData.triolet7,
-      "line8" : $scope.trioletData.triolet8
+    $scope.doSubmit = function () {
+        $timeout(function () {
+            console.log($scope.poetryData);
+            $scope.haikuData = {};
+            $scope.proseData = {};
+            $scope.pantoumData = {};
+            $scope.trioletData = {};
+            $ionicLoading.hide();
+            $scope.closeSubmit();
+        }, 1000);
     };
-    oui.push($scope.poetryData);
-
-    $scope.doSubmit();
-  }
-
-  $scope.doSubmit = function() {
-    $timeout(function() {
-      console.log($scope.poetryData);
-      $scope.haikuData = {};
-      $scope.proseData = {};
-      $scope.pantoumData = {};
-      $scope.trioletData = {};
-      $ionicLoading.hide();
-      $scope.closeSubmit();
-    }, 1000);
-  };
 });
 
 var description = [
-  {
-    Haiku: 'Haikus are a traditional form of Japanese poetry. Haiku poems consist of 3 lines. The first and last lines of a Haiku have 5 syllables and the middle line has 7 syllables.',
-    Pantoum: 'A Pantoum is a type of poem with a verse form consisting of three stanzas. It has a set pattern within the poem of repetitive lines.',
-    Prose: 'Prose poetry is poetry written in prose instead of using verse but preserving poetic qualities such as heightened imagery, parataxis and emotional effects.',
-    Triolet: 'A triolet is a stanza poem of eight lines. Its rhyme scheme is ABaAabAB and often all lines are in iambic tetrameter. The form stems from medieval French poetry - the earliest written examples are from the late 13th century.'
-  } 
+    {
+        Haiku: 'Haikus are a traditional form of Japanese poetry. Haiku poems consist of 3 lines. The first and last lines of a Haiku have 5 syllables and the middle line has 7 syllables.',
+        Pantoum: 'A Pantoum is a type of poem with a verse form consisting of three stanzas. It has a set pattern within the poem of repetitive lines.',
+        Prose: 'Prose poetry is poetry written in prose instead of using verse but preserving poetic qualities such as heightened imagery, parataxis and emotional effects.',
+        Triolet: 'A triolet is a stanza poem of eight lines. Its rhyme scheme is ABaAabAB and often all lines are in iambic tetrameter. The form stems from medieval French poetry - the earliest written examples are from the late 13th century.'
+  }
 ]

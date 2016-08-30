@@ -33,6 +33,18 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Adding Yellowtail font
 @include font-face(Yellowtail, "../fonts/Yellowtail/Yellowtail", normal, normal);
 
+// Adding FredokaOne font
+@include font-face(FredokaOne, "../fonts/FredokaOne/FredokaOne", normal, normal);
+
+// Adding Lemon font
+@include font-face(Lemon, "../fonts/Lemon/Lemon", normal, normal);
+
+// Adding Philosopher font
+@include font-face(Philosopher, "../fonts/Philosopher/regular/Philosopher", normal, normal);
+@include font-face(Philosopher-Bold, "../fonts/Philosopher/bold/Philosopher-Bold", normal, normal);
+@include font-face(Philosopher-Italic, "../fonts/Philosopher/italic/Philosopher-Italic", normal, normal);
+@include font-face(Philosopher-BoldItalic, "../fonts/Philosopher/bold_italic/Philosopher-BoldItalic", normal, normal);
+
 // Adding FontAwesome font
 @include font-face(fontawesome, "../fonts/FontAwesome/fontawesome", normal, normal);
 

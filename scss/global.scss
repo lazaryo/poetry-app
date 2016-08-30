@@ -105,19 +105,35 @@ blockquote {
 		padding: 16px;
 		background-color: #23BDE7;
 		color: #FFFFFF;
+        position: relative;
 
 		h1, h2, h3, h4, h5 {
-			font-family: 'Yellowtail', sans-serif !important;
+//			font-family: 'CaveatBrush', sans-serif !important;
+            font-family: 'FredokaOne', cursive !important;
+//            font-family: 'Philosopher' !important;
+//            font-family: 'Philosopher-Bold' !important;
+//            font-family: 'Philosopher-BoldItalic' !important;
+//            font-family: 'Philosopher-Italic' !important;
+//            font-family: 'Lemon', cursive !important;
 			text-align: center;
 			margin: 0 0 10px 0;
 			padding: 0 0 10px 0;
 			color: #FFFFFF;
 			border-bottom: 3px solid #FFFFFF;
+            font-size: 30px;
+            letter-spacing: 5px;
 		}
 
 		h1 {
 			margin-top: -8px;
 		}
+
+        .ion-close-round {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+        }
 	}
 }
 
@@ -131,7 +147,7 @@ blockquote {
 
 .desc {
 	margin-bottom: 0;
-	padding: 8px8px 16px;
+	padding: 16px;
 	font-size: 15px;
 	text-align: justify;
 }

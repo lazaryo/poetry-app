@@ -77,16 +77,24 @@ blockquote {
 .home #message {
   padding: 16px;
   background-color: #23BDE7;
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  position: relative; }
   .home #message h1, .home #message h2, .home #message h3, .home #message h4, .home #message h5 {
-    font-family: 'Yellowtail', sans-serif !important;
+    font-family: 'FredokaOne', cursive !important;
     text-align: center;
     margin: 0 0 10px 0;
     padding: 0 0 10px 0;
     color: #FFFFFF;
-    border-bottom: 3px solid #FFFFFF; }
+    border-bottom: 3px solid #FFFFFF;
+    font-size: 30px;
+    letter-spacing: 5px; }
   .home #message h1 {
     margin-top: -8px; }
+  .home #message .ion-close-round {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px; }
 
 .home #home-desc {
   padding: 16px;
@@ -95,7 +103,7 @@ blockquote {
 
 .desc {
   margin-bottom: 0;
-  padding: 8px8px 16px;
+  padding: 16px;
   font-size: 15px;
   text-align: justify; }
 

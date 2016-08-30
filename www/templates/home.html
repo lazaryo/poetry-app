@@ -11,7 +11,12 @@
 
 	    <p id="home-desc">Into Existence enables you to view poetry written by writers everywhere. In the app you can also submit your own poetry by filling out the respected forms. Below are the current poem forms available.</p>
 
-	    <div id="message">{{message}}</div>
+        <!--{{hmm}}-->
+    
+	    <div id="message" ng-show="{{hmm}}">
+<!--	        <i ng-click="changeIt()" style="color: white; z-index: 999999" class="icon ion-close-round"></i>-->
+	        {{message}}
+	    </div>
 
 	    <div class="row">
 	  		<div class="col col-50">

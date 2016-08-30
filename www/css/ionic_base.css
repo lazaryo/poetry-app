@@ -9756,6 +9756,42 @@ a.button {
   src: url("../fonts/Yellowtail/Yellowtail.eot?") format("eot"), url("../fonts/Yellowtail/Yellowtail.woff2") format("woff2"), url("../fonts/Yellowtail/Yellowtail.woff") format("woff"), url("../fonts/Yellowtail/Yellowtail.ttf") format("truetype"), url('../fonts/Yellowtail/Yellowtail.svg#str-replace(Yellowtail, " ", "_")') format("svg"); }
 
 @font-face {
+  font-family: "FredokaOne";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/FredokaOne/FredokaOne.eot?") format("eot"), url("../fonts/FredokaOne/FredokaOne.woff2") format("woff2"), url("../fonts/FredokaOne/FredokaOne.woff") format("woff"), url("../fonts/FredokaOne/FredokaOne.ttf") format("truetype"), url('../fonts/FredokaOne/FredokaOne.svg#str-replace(FredokaOne, " ", "_")') format("svg"); }
+
+@font-face {
+  font-family: "Lemon";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Lemon/Lemon.eot?") format("eot"), url("../fonts/Lemon/Lemon.woff2") format("woff2"), url("../fonts/Lemon/Lemon.woff") format("woff"), url("../fonts/Lemon/Lemon.ttf") format("truetype"), url('../fonts/Lemon/Lemon.svg#str-replace(Lemon, " ", "_")') format("svg"); }
+
+@font-face {
+  font-family: "Philosopher";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Philosopher/regular/Philosopher.eot?") format("eot"), url("../fonts/Philosopher/regular/Philosopher.woff2") format("woff2"), url("../fonts/Philosopher/regular/Philosopher.woff") format("woff"), url("../fonts/Philosopher/regular/Philosopher.ttf") format("truetype"), url('../fonts/Philosopher/regular/Philosopher.svg#str-replace(Philosopher, " ", "_")') format("svg"); }
+
+@font-face {
+  font-family: "Philosopher-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Philosopher/bold/Philosopher-Bold.eot?") format("eot"), url("../fonts/Philosopher/bold/Philosopher-Bold.woff2") format("woff2"), url("../fonts/Philosopher/bold/Philosopher-Bold.woff") format("woff"), url("../fonts/Philosopher/bold/Philosopher-Bold.ttf") format("truetype"), url('../fonts/Philosopher/bold/Philosopher-Bold.svg#str-replace(Philosopher-Bold, " ", "_")') format("svg"); }
+
+@font-face {
+  font-family: "Philosopher-Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Philosopher/italic/Philosopher-Italic.eot?") format("eot"), url("../fonts/Philosopher/italic/Philosopher-Italic.woff2") format("woff2"), url("../fonts/Philosopher/italic/Philosopher-Italic.woff") format("woff"), url("../fonts/Philosopher/italic/Philosopher-Italic.ttf") format("truetype"), url('../fonts/Philosopher/italic/Philosopher-Italic.svg#str-replace(Philosopher-Italic, " ", "_")') format("svg"); }
+
+@font-face {
+  font-family: "Philosopher-BoldItalic";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Philosopher/bold_italic/Philosopher-BoldItalic.eot?") format("eot"), url("../fonts/Philosopher/bold_italic/Philosopher-BoldItalic.woff2") format("woff2"), url("../fonts/Philosopher/bold_italic/Philosopher-BoldItalic.woff") format("woff"), url("../fonts/Philosopher/bold_italic/Philosopher-BoldItalic.ttf") format("truetype"), url('../fonts/Philosopher/bold_italic/Philosopher-BoldItalic.svg#str-replace(Philosopher-BoldItalic, " ", "_")') format("svg"); }
+
+@font-face {
   font-family: "fontawesome";
   font-style: normal;
   font-weight: normal;

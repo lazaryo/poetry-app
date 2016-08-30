@@ -1,6 +1,8 @@
 {
   "name": "into_existence",
   "app_id": "e7ac5ca9",
+  "v2": false,
+  "typescript": false,
   "gulpStartupTasks": [
     "sass",
     "watch"
