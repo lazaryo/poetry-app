@@ -102,6 +102,7 @@ blockquote {
 	}
 
 	#message {
+        margin-top: 16px;
 		padding: 16px;
 		background-color: #23BDE7;
 		color: #FFFFFF;
@@ -139,7 +140,7 @@ blockquote {
 
 .home {
 	#home-desc {
-		padding: 16px;
+		padding: 20px 8px 0 8px;
 		margin: 0;
 		text-align: justify;
 	}

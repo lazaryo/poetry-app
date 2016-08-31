@@ -11,31 +11,26 @@ poetry_prototype.controller('creditCtrl', function ($scope, $firebaseArray, $fir
 });
 
 poetry_prototype.controller('homeCtrl', function ($scope, $firebaseArray, $firebaseObject) {
+    $scope.hmm = true;
+    
     var ref = new Firebase('https://poetry-prototype.firebaseio.com/daily/message/');
     ref.on("value", function (snapshot) {
         var message = snapshot.val();
 
         function writeIt() {
-            var made = angular.element(document.querySelector('#message'));
+            var made = angular.element(document.querySelector('#message-content'));
             made.html('');
             made.append('<h1>Daily Message</h1>' + message);
         }
         $scope.message = writeIt();
     });
-
-    $scope.hmm = true;
     
-    $scope.changeIt = function () {
-        if ($scope.hmm == true) {
-            $scope.hmm = false;
-            console.log($scope.hmm);
-            return $scope.hmm
-        } else {
-            $scope.hmm = true;
-            console.log($scope.hmm);
-            return $scope.hmm
-        }
-    }
+    $scope.messageStatus = {'hide': false};
+    
+    $scope.hideMessage = function (status) {
+        status.hide = true;
+        console.log('Daily message hidden.');
+    };
   
 });
 
