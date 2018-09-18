@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>SignUp to Poetry</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid *ngIf="signUpType == 'google'">
+        <h3>Google Sign Up</h3>
+        <p>Your profille will need to be verified before publishing poetry on this app.</p>
+        <form (ngSubmit)="googleSignUp()">
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <button ion-button block color="dark" type="submit">
+                        Sign Up
+                    </button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-grid>
+
+
+    <ion-grid id="no-signup">
+        <ion-row>
+            <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                <p style="text-align:center">Already have an account?</p>
+                <button ion-button block clear small color="danger" (click)="backtoLogin()">Log In</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

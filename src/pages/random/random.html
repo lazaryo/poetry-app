@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Random Poem</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="newPoem()">
+                <ion-icon name="refresh"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            <h2>{{ single.title }}</h2>
+            <small>{{ single.author }}</small>
+        </ion-card-header>
+
+        <ion-card-content>
+            <p *ngFor="let line of single.lines | lines">{{line.value}}</p>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

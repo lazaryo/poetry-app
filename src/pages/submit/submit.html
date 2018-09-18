@@ -1,0 +1,96 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>Submit a Poem</ion-title>
+        
+        <ion-buttons end>
+        <button ion-button icon-only clear color="dark" (click)="seeDesc(formName)">
+            <ion-icon name="md-information-circle"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <p>Submit a poem here with the the given poem formats.</p><br>
+    
+    <!--  Poem Form Type Options  -->
+    <ion-item no-padding>
+        <ion-label>Form Type</ion-label>
+        <ion-select [(ngModel)]="formName">
+            <ion-option *ngFor="let form of forms | async" value={{form.name}}>{{form.name}}</ion-option>
+        </ion-select>
+    </ion-item><br>
+    
+    <p *ngIf="formName == null"><b>Pick a poem form from the options and begin writing.</b></p>
+    <button *ngIf="formName" ion-button block color="danger" (click)="viewExample(formName)">View Example</button>
+    
+    <div *ngIf="formName">
+        <ng-container *ngFor="let form of forms | async">
+            <pre *ngIf="formName == form.name">{{form.example | json}}</pre>
+        </ng-container>
+    </div>
+    
+    <!--  Haiku Form  -->
+    <form id="haikuF" *ngIf="formName == 'Haiku'" (ngSubmit)="haiku()">
+        <ion-input name="title" [(ngModel)]="haikuInfo.title" type="text" placeholder="Title"></ion-input>
+        <ion-input name="author" [(ngModel)]="haikuInfo.author" type="text" placeholder="Author"></ion-input>
+        
+        <ion-input name="line1" [(ngModel)]="haikuInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
+        <ion-input name="line2" [(ngModel)]="haikuInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
+        <ion-input name="line3" [(ngModel)]="haikuInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
+        
+        <button ion-button color="dark" block type="submit">Submit</button>
+    </form>
+    
+    <!--  Pantoum Form  -->
+    <form *ngIf="formName == 'Pantoum'" (ngSubmit)="pantoum()">
+        <ion-input name="title" [(ngModel)]="pantoumInfo.title" type="text" placeholder="Title"></ion-input>
+        <ion-input name="author" [(ngModel)]="pantoumInfo.author" type="text" placeholder="Author"></ion-input>
+
+        <ion-input name="line1" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
+        <ion-input name="line2" [(ngModel)]="pantoumInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
+        <ion-input name="line3" [(ngModel)]="pantoumInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
+        <ion-input name="line4" [(ngModel)]="pantoumInfo.lines.line4" type="text" placeholder="Line 4"></ion-input>
+        <ion-input name="line5" [(ngModel)]="pantoumInfo.lines.line2" type="text" placeholder="Line 5"></ion-input>
+        <ion-input name="line6" [(ngModel)]="pantoumInfo.lines.line6" type="text" placeholder="Line 6"></ion-input>
+        <ion-input name="line7" [(ngModel)]="pantoumInfo.lines.line4" type="text" placeholder="Line 7"></ion-input>
+        <ion-input name="line8" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 8"></ion-input>
+        <ion-input name="line9" [(ngModel)]="pantoumInfo.lines.line6" type="text" placeholder="Line 9"></ion-input>
+        <ion-input name="line10" [(ngModel)]="pantoumInfo.lines.line3" type="text" placeholder="Line 10"></ion-input>
+        <ion-input name="line11" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 11"></ion-input>
+        <ion-input name="line12" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 12"></ion-input>
+        
+        <button ion-button color="dark" block type="submit">Submit</button>
+    </form>
+    
+    <!--  Prose Form  -->
+    <form id="proseF" *ngIf="formName == 'Prose'" (ngSubmit)="prose(proseT, proseA, proseM)">
+        <ion-input name="title" [(ngModel)]="proseT" type="text" placeholder="Title"></ion-input>
+        <ion-input name="author" [(ngModel)]="proseA" type="text" placeholder="Author"></ion-input>
+        
+        <ion-textarea rows="10" placeholder="Your thoughts go here"></ion-textarea>
+        
+        <button ion-button color="dark" block type="submit">Submit</button>
+    </form>
+    
+    <!--  Triolet Form  -->
+    <form *ngIf="formName == 'Triolet'" (ngSubmit)="triolet()">
+        <ion-input name="title" type="text" [(ngModel)]="trioletInfo.title" placeholder="Title"></ion-input>
+        <ion-input name="author" type="text" [(ngModel)]="trioletInfo.author" placeholder="Author"></ion-input>
+        
+        <ion-input name="line1" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
+        <ion-input name="line2" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
+        <ion-input name="line3" [(ngModel)]="trioletInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
+        <ion-input name="line4" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 4"></ion-input>
+        <ion-input name="line5" [(ngModel)]="trioletInfo.lines.line5" type="text" placeholder="Line 5"></ion-input>
+        <ion-input name="line6" [(ngModel)]="trioletInfo.lines.line6" type="text" placeholder="Line 6"></ion-input>
+        <ion-input name="line7" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 7"></ion-input>
+        <ion-input name="line8" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 8"></ion-input>
+        
+        <button ion-button color="dark" block type="submit">Submit</button>
+    </form>
+</ion-content>

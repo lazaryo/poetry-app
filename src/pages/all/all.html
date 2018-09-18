@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>All Poetry</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <p>Showing all poems submitted below.</p>
+    
+    <ion-list>
+        <div *ngFor="let poem of poems | async">
+        <ion-item no-lines no-padding *ngIf="poem.verified == true">
+            <button ion-button clear color="dark" (click)="singlePoem(poem.title, poem.author, poem.formType, poem.lines)">{{poem.title}}</button>
+            <p class="author">{{poem.author}}</p>
+            <button ion-button clear item-right color="danger"
+                (click)="seeFormType(poem.formType)">{{poem.formType}}</button>
+        </ion-item>
+        </div>
+    </ion-list>
+</ion-content>

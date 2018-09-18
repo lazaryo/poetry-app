@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>{{ft}} Poetry</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ng-container *ngFor="let form of forms | async">
+        <p *ngIf="form.name == ft">{{form.desc}}</p>
+    </ng-container>
+
+    <ng-container *ngFor="let poem of poems | async">
+        <ion-item no-lines no-padding *ngIf="poem.verified == true && poem.formType == ft">
+            <button ion-button clear color="dark" (click)="single(poem)">{{poem.title}}</button>
+            <p class="author">{{poem.author}}</p>
+            <p ion-text item-right color="danger">{{poem.formType}}</p>
+        </ion-item>
+    </ng-container>
+</ion-content>

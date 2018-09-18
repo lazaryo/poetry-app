@@ -1,14 +1,8 @@
 {
-  "name": "into_existence",
-  "app_id": "e7ac5ca9",
-  "v2": false,
-  "typescript": false,
-  "gulpStartupTasks": [
-    "sass",
-    "watch"
-  ],
-  "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
-  ]
+  "name": "Poetry V3",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "44245918"
 }

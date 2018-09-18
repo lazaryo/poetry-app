@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>Poetry</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngIf="afAuth.user | async as user; else showLogin">
+        <h4>Hello, {{ user.displayName }}!</h4>
+    </div>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6 *ngFor="let form of forms | async">
+                <button ion-button block color="dark" (click)="seeFormType(form.name)">{{form.name}}</button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row><button ion-button block (click)="randomPoem()" color="danger">View a Random Poem</button></ion-row>
+        
+        <ion-row><button ion-button block (click)="allPoems()" color="dark">See All Poems</button></ion-row>
+    </ion-grid>
+
+</ion-content>
