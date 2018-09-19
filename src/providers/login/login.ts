@@ -5,17 +5,20 @@ import firebase from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
 import { AngularFireDatabase } from '@angular/fire/database';
 //import { Observable } from 'rxjs';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Injectable()
 export class LoginProvider {
     public userF: firebase.User;
     newUser: any;
     public newUserInfo: any;
+    public browser: any;
     
-	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
+	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, private iab: InAppBrowser) {
 		afAuth.authState.subscribe(user => {
 			this.userF = user;
         });
+//        this.browser = this.iab.create('http://malikdh.com/');
 	}
     
     setUserInfo(authInfo, userVars) {
