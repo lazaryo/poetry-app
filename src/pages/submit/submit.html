@@ -26,16 +26,30 @@
     </ion-item><br>
     
     <p *ngIf="formName == null"><b>Pick a poem form from the options and begin writing.</b></p>
-    <button *ngIf="formName" ion-button block color="danger" (click)="viewExample(formName)">View Example</button>
+    <button *ngIf="formName && changeView" ion-button block color="danger" (click)="viewExample()">View Example</button>
+    <button *ngIf="formName && !changeView" ion-button block color="danger" (click)="viewExample()">Hide Example</button>
     
-    <div *ngIf="formName">
+    <div *ngIf="formName && !changeView">
         <ng-container *ngFor="let form of forms | async">
-            <pre *ngIf="formName == form.name">{{form.example | json}}</pre>
+            <ion-card *ngIf="formName == form.name">
+                <ion-card-header>
+                    <h2>{{ form.example.title }}</h2>
+                    <small>{{ form.example.author }}</small>
+                </ion-card-header>
+
+                <ion-card-content>
+                    <p ion-text>
+                        <span *ngFor="let line of form.example.lines | lines">
+                            {{line.value}}<br><br *ngIf="formType == 'Prose'">
+                        </span>
+                    </p>
+                </ion-card-content>
+            </ion-card>
         </ng-container>
     </div>
     
     <!--  Haiku Form  -->
-    <form id="haikuF" *ngIf="formName == 'Haiku'" (ngSubmit)="haiku()">
+    <form id="haikuF" *ngIf="formName == 'Haiku' && changeView" (ngSubmit)="haiku()">
         <ion-input name="title" [(ngModel)]="haikuInfo.title" type="text" placeholder="Title"></ion-input>
         <ion-input name="author" [(ngModel)]="haikuInfo.author" type="text" placeholder="Author"></ion-input>
         
@@ -47,7 +61,7 @@
     </form>
     
     <!--  Pantoum Form  -->
-    <form *ngIf="formName == 'Pantoum'" (ngSubmit)="pantoum()">
+    <form *ngIf="formName == 'Pantoum' && changeView" (ngSubmit)="pantoum()">
         <ion-input name="title" [(ngModel)]="pantoumInfo.title" type="text" placeholder="Title"></ion-input>
         <ion-input name="author" [(ngModel)]="pantoumInfo.author" type="text" placeholder="Author"></ion-input>
 
@@ -68,7 +82,7 @@
     </form>
     
     <!--  Prose Form  -->
-    <form id="proseF" *ngIf="formName == 'Prose'" (ngSubmit)="prose(proseT, proseA, proseM)">
+    <form id="proseF" *ngIf="formName == 'Prose' && changeView" (ngSubmit)="prose(proseT, proseA, proseM)">
         <ion-input name="title" [(ngModel)]="proseT" type="text" placeholder="Title"></ion-input>
         <ion-input name="author" [(ngModel)]="proseA" type="text" placeholder="Author"></ion-input>
         
@@ -78,7 +92,7 @@
     </form>
     
     <!--  Triolet Form  -->
-    <form *ngIf="formName == 'Triolet'" (ngSubmit)="triolet()">
+    <form *ngIf="formName == 'Triolet' && changeView" (ngSubmit)="triolet()">
         <ion-input name="title" type="text" [(ngModel)]="trioletInfo.title" placeholder="Title"></ion-input>
         <ion-input name="author" type="text" [(ngModel)]="trioletInfo.author" placeholder="Author"></ion-input>
         

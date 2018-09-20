@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="poetry">
         <button ion-button icon-only menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -14,9 +14,9 @@
     <ion-list>
         <div *ngFor="let poem of poems | async">
         <ion-item no-lines no-padding *ngIf="poem.verified == true">
-            <button ion-button clear color="dark" (click)="singlePoem(poem.title, poem.author, poem.formType, poem.lines)">{{poem.title}}</button>
+            <button ion-button clear color="poetry" (click)="singlePoem(poem.title, poem.author, poem.formType, poem.lines)">{{poem.title}}</button>
             <p class="author">{{poem.author}}</p>
-            <button ion-button clear item-right color="danger"
+            <button ion-button clear item-right color="poetry"
                 (click)="seeFormType(poem.formType)">{{poem.formType}}</button>
         </ion-item>
         </div>

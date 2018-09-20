@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormPage } from '../form/form';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,11 @@ export class SinglePage {
         this.formType = navParams.get('formType');
         this.lines = navParams.get('lines');
     }
-
+    
+    seeFormType(formType) {
+        this.navCtrl.push(FormPage, {formType: formType});
+    }
+    
     ionViewDidLoad() {
         console.log('ionViewDidLoad SinglePage');
     }

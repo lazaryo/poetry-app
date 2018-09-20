@@ -1,12 +1,53 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>Login to Poetry</ion-title>
+    <ion-navbar color="poetry">
+        <ion-title text-center>Login to Poetry</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <p>Login into the application through Google.</p>
+    <p text-center>Login into the application through Email or Google.</p>
+
+    <ion-grid>
+        <form (ngSubmit)="loginWithEmail()">
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <ion-item no-padding fixed>
+                        <ion-label>Email</ion-label>
+                        <ion-input type="text" [(ngModel)]="enp.email" name="email"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <ion-item no-padding fixed>
+                        <ion-label>Password</ion-label>
+                        <ion-input type="password" [(ngModel)]="enp.password" name="password"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row no-padding>
+                <ion-col no-padding col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <button ion-button block color="poetry" type="submit">
+                        Login
+                    </button>
+                </ion-col>
+            </ion-row>
+        </form><br>
+        
+        <ion-row no-padding>
+            <button ion-button block color="danger" (click)="loginWithGoogle()"><ion-icon name="logo-google"></ion-icon>&nbsp;Login with Google</button>
+        </ion-row>
+    </ion-grid>
     
-    <br><button ion-button block color="dark" (click)="loginWithGoogle()"><ion-icon name="logo-google"></ion-icon>&nbsp;Login</button>
-    <br><button ion-button block clear color="danger" (click)="openSignUp()">SignUp</button>
+    <ion-grid id="no-signup">
+        <ion-row>
+            <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                <p style="text-align:center">Don't have an account?</p>
+                <button ion-button block clear small color="poetry" (click)="openSignUp()">Sign Up</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
 </ion-content>

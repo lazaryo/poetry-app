@@ -1,14 +1,68 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>SignUp to Poetry</ion-title>
+        <ion-title text-center>SignUp to Poetry</ion-title>
     </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button ion-button block color="poetry" (click)="changeSignUp('email')">Email Sign Up</button>
+            </ion-col>
+            <ion-col>
+                <button ion-button block color="danger" (click)="changeSignUp('google')">Google Sign Up</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="signUpType == 'email'">
+        <h3>Email Sign Up</h3>
+        <p>Your profille will need to be verified before publishing poetry on this app.</p>
+        
+        <form (ngSubmit)="enpSignUp()">
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <ion-item fixed>
+                        <ion-label>Name</ion-label>
+                        <ion-input type="text" [(ngModel)]="enp.name" name="name" placeholder="John Doe"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <ion-item fixed>
+                        <ion-label>Email</ion-label>
+                        <ion-input type="text" [(ngModel)]="enp.email" name="email" placeholder="your@email.com"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <ion-item fixed>
+                        <ion-label>Password</ion-label>
+                        <ion-input type="password" [(ngModel)]="enp.password" name="password" placeholder="password"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row no-padding>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                    <button ion-button block color="dark" type="submit">
+                        Sign Up
+                    </button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-grid>
+
     <ion-grid *ngIf="signUpType == 'google'">
         <h3>Google Sign Up</h3>
         <p>Your profille will need to be verified before publishing poetry on this app.</p>
+        
         <form (ngSubmit)="googleSignUp()">
             <ion-row no-padding>
                 <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>

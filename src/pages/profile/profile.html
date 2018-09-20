@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="poetry">
         <ion-title>Your Profile</ion-title>
         
         <ion-buttons end>
@@ -23,8 +23,10 @@
     
         <img padding-bottom src={{info.profilePicture}} title={{info.displayName}}>
     
+        <button *ngIf="info.owner == true" ion-button outline small color="carrot">Owner</button>
         <button *ngIf="info.admin == true" ion-button outline small color="danger">Admin</button>
-        <button *ngIf="info.verifiedUser == true" ion-button outline small color="stable">Verified</button>
+        <button *ngIf="info.mod == true" ion-button outline small color="secondary">Mod</button>
+        <button *ngIf="info.verifiedUser == true" ion-button outline small color="primary">Verified</button>
     </ion-card>
    
     <button ion-button block color="dark" (click)="showPoetry()">

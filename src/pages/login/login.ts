@@ -15,6 +15,11 @@ import { SignUpPage } from '../signup/signup';
 })
 
 export class LoginPage {
+    enp = {
+        email: '',
+        password: ''
+    }
+    
     constructor(public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public db: AngularFireDatabase, public _lp: LoginProvider, public toastCtrl: ToastController) {
     }
 
@@ -33,20 +38,20 @@ export class LoginPage {
         this.navCtrl.setRoot(HomePage, {}, {animate: true, animation: 'wp-transition', direction: 'forward'});
     }
     
-    loginWithGoogle() {
-        console.log('Logging in with Google')
-        this._lp.signInWithGoogle();
+    loginWithEmail() {
+        console.log('Logging in with Email and Password')
+        this._lp.signInWithEmail(this.enp);
         this.loggedInToast();
     }
-
-    loginWithFacebook() {
-        console.log('Logging in with Facebook')
-        this._lp.signInWithFacebook();
-        this.loggedInToast();
+    
+    loginWithGoogle() {
+        console.log('Logging in with Google')
+//        this._lp.signInWithGoogle();
+//        this.loggedInToast();
     }
 
     openSignUp() {
-        this.navCtrl.push(SignUpPage);
+        this.navCtrl.setRoot(SignUpPage, {}, {animate: true, animation: 'wp-transition', direction: 'forward'});
     }
 
 }

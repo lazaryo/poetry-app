@@ -16,6 +16,7 @@ export class SubmitPage {
     formName: any;
     formDesc: any;
     examples: any;
+    changeView = true;
     haikuInfo = {
             title: '',
             author: '',
@@ -118,36 +119,38 @@ export class SubmitPage {
         alert.present();
     }
     
-    viewExample(name) {
-        let title, subTitle;
-        
-        switch(name) {
-            case 'Haiku':
-                title = name + ' Example';
-                subTitle = name;
-                break;
-            case 'Pantoum':
-                title = name + ' Example';
-                subTitle = name;
-                break;
-            case 'Prose':
-                title = name + ' Example';
-                subTitle = name;
-                break;
-            case 'Triolet':
-                title = name + ' Example';
-                subTitle = name;
-            default:
-                title = name;
-                subTitle = name;
-        }
-        
-        const alert = this.alertCtrl.create({
-            title: title,
-            subTitle: subTitle,
-            buttons: ['OK']
-        });
-        alert.present();    }
+    viewExample() {
+        this.changeView = !this.changeView;
+//        let title, subTitle;
+//        
+//        switch(name) {
+//            case 'Haiku':
+//                title = name + ' Example';
+//                subTitle = name;
+//                break;
+//            case 'Pantoum':
+//                title = name + ' Example';
+//                subTitle = name;
+//                break;
+//            case 'Prose':
+//                title = name + ' Example';
+//                subTitle = name;
+//                break;
+//            case 'Triolet':
+//                title = name + ' Example';
+//                subTitle = name;
+//            default:
+//                title = name;
+//                subTitle = name;
+//        }
+//        
+//        const alert = this.alertCtrl.create({
+//            title: title,
+//            subTitle: subTitle,
+//            buttons: ['OK']
+//        });
+//        alert.present();        
+    }
 
     haiku(){
         // if the title input is empty

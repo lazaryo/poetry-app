@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import AuthProvider = firebase.auth.AuthProvider;
 import { AngularFireDatabase } from '@angular/fire/database';
 //import { Observable } from 'rxjs';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+//import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Injectable()
 export class LoginProvider {
-    public userF: firebase.User;
-    newUser: any;
-    public newUserInfo: any;
-    public browser: any;
+    private userF: firebase.User;
+    newUserInfo: any;
     
-	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, private iab: InAppBrowser) {
+	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
 		afAuth.authState.subscribe(user => {
 			this.userF = user;
-        });
-//        this.browser = this.iab.create('http://malikdh.com/');
+		});
+        
 	}
     
     setUserInfo(authInfo, userVars) {
@@ -28,7 +25,6 @@ export class LoginProvider {
             anon: false,
             displayName: userVars.displayName,
             email: authInfo.email,
-            verifiedEmail: false,
             profilePicture: userVars.profilePicture,
             provider: userVars.provider,
             verifiedUser: false
@@ -37,82 +33,157 @@ export class LoginProvider {
         console.log(this.newUserInfo);
     }
     
-    signUpWithGoogle(userVars) {
-        console.log(userVars);
-        console.log('Signing up with google');
-		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider(), 'google', userVars, true, this.db);
+    signInWithEmail(enp) {
+        console.log('Signing in with email');
+        
+        this.afAuth.auth.signInWithEmailAndPassword(enp.email, enp.password)
+        .then(response => {
+            console.log(response.user);
+            
+            let currentuser = response.user.uid
+            window.localStorage.setItem('currentuser', currentuser);
+            let provider = 'email';
+            window.localStorage.setItem('provider', provider);
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            var errorMessage = error.message;
+            console.log(errorMessage);
+        });
     }
     
-    signUpWithFacebook(userVars) {
-        console.log(userVars);
-    }
-  
-    signInWithFacebook() {
-		console.log('Sign in with facebook');
-		return this.oauthSignIn(new firebase.auth.FacebookAuthProvider(), 'facebook', {}, false, this.db);
-	}
+    signUpWithEmail(enp, userVars) {
+        console.log('Signing up with email');
+        
+        this.afAuth.auth.createUserWithEmailAndPassword(enp.email, enp.password).then((response) => {
+            let newUser = response.user;
+            console.log(newUser.uid);
+            
+            let currentuser = newUser.uid
+            window.localStorage.setItem('currentuser', currentuser);
+            let provider = 'email';
+            window.localStorage.setItem('provider', provider);
+            
+            userVars.displayName = enp.name;
+            userVars.email = enp.email;
+            
+            let newUserRef = this.db.database.ref('/users/' + currentuser);
+            newUserRef.set(userVars);
+            
+            var user = this.afAuth.auth.currentUser;
 
-    signInWithGoogle() {
-		console.log('Sign in with google');
-		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider(), 'google', {}, false, this.db);
-	}
-
-    private oauthSignIn(provider: AuthProvider, signInProvider, userDBInfo, signup, db: AngularFireDatabase) {
-		if (!(<any>window).cordova) {
-			return this.afAuth.auth.signInWithPopup(provider)
-            .then(function(result) {
-              // This gives you a Google Access Token. You can use it to access the Google API.
-              // var token = result.credential.accessToken;
-                var myProp = 'accessToken';
-                let token;
-
-                if(result.credential.hasOwnProperty(myProp)){
-                    token = result.credential[myProp];
-                }
-                
-                // The signed-in user info.
-                var user = result.user;
-                console.log(token, user);
-                let currentuser = user.uid;
-                window.localStorage.setItem('currentuser', currentuser);
-                let provider = signInProvider;
-                window.localStorage.setItem('provider', provider);
-                
-                if (signup == true) {
-                    let userRef = db.database.ref('/users/' + user.uid);
-                    userDBInfo.displayName = user.displayName;
-                    userRef.set(userDBInfo);
-                }
-                
+            // send email verification (replace with toast)     
+            user.sendEmailVerification().then((ok) => {
+                console.log('Email verification sent.');
             }).catch(function(error) {
-                // Handle Errors here.
-                // var errorCode = error.code;
-                var errorMessage = error.message;
-                // var email = error.email;
-                
-                // The firebase.auth.AuthCredential type that was used.
-                // var credential = error.credential;
-                console.log(errorMessage);
+                // An error happened.
             });
-		} else {
-			return this.afAuth.auth.signInWithRedirect(provider)
-			.then(() => {
-				return this.afAuth.auth.getRedirectResult().then( result => {
-                    var myProp = 'accessToken';
-                    let token;
+            
+            user.updateProfile({
+                displayName: userVars.displayName,
+                photoURL: userVars.profilePicture
+            }).then(function() {
+                // Update successful.
+                console.log('Update successful.');
+            }, function(error) {
+                // An error happened.
+                console.log(error);
+            });
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorMessage = error.message;
+            console.log(errorMessage);
+        });
+    }
+    
+//    signUpWithGoogle(userVars) {
+//        console.log(userVars);
+//        console.log('Signing up with google');
+//		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider(), 'google', userVars, true, this.db);
+//    }
 
-                    if(result.credential.hasOwnProperty(myProp)){
-                        token = result.credential[myProp];
-                    }
-                    
-					// The signed-in user info.
-					let user = result.user;
-					console.log(token, user);
-				}).catch(function(error) {
-					// Handle Errors here.
-					alert(error.message);
-				});
-			});
-		}
-	}
+//    signInWithGoogle() {
+//		console.log('Sign in with google');
+//		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+//	}
+//    
+//    private oauthSignIn(provider: AuthProvider) {
+//		if (!(<any>window).cordova) {
+//			return this.afAuth.auth.signInWithPopup(provider);
+//		} else {
+//			return this.afAuth.auth.signInWithRedirect(provider)
+//			.then(() => {
+//				return this.afAuth.auth.getRedirectResult().then( result => {
+//					// This gives you a Google Access Token.
+//					// You can use it to access the Google API.
+//					let token = result.credential.accessToken;
+//					// The signed-in user info.
+//					let user = result.user;
+//					console.log(token, user);
+//				}).catch(function(error) {
+//					// Handle Errors here.
+//					alert(error.message);
+//				});
+//			});
+//		}
+//	}
+
+//    private oauthSignIn(provider: AuthProvider, signInProvider, userDBInfo, signup, db: AngularFireDatabase) {
+//		if (!(<any>window).cordova) {
+//			return this.afAuth.auth.signInWithPopup(provider)
+//            .then(function(result) {
+//              // This gives you a Google Access Token. You can use it to access the Google API.
+//              // var token = result.credential.accessToken;
+//                var myProp = 'accessToken';
+//                let token;
+//
+//                if(result.credential.hasOwnProperty(myProp)){
+//                    token = result.credential[myProp];
+//                }
+//                
+//                // The signed-in user info.
+//                var user = result.user;
+//                console.log(token, user);
+//                let currentuser = user.uid;
+//                window.localStorage.setItem('currentuser', currentuser);
+//                let provider = signInProvider;
+//                window.localStorage.setItem('provider', provider);
+//                
+//                if (signup == true) {
+//                    let userRef = db.database.ref('/users/' + user.uid);
+//                    userDBInfo.displayName = user.displayName;
+//                    userRef.set(userDBInfo);
+//                }
+//                
+//            }).catch(function(error) {
+//                // Handle Errors here.
+//                // var errorCode = error.code;
+//                var errorMessage = error.message;
+//                // var email = error.email;
+//                
+//                // The firebase.auth.AuthCredential type that was used.
+//                // var credential = error.credential;
+//                console.log(errorMessage);
+//            });
+//		} else {
+//			return this.afAuth.auth.signInWithRedirect(provider)
+//			.then(() => {
+//				return this.afAuth.auth.getRedirectResult().then( result => {
+//                    var myProp = 'accessToken';
+//                    let token;
+//
+//                    if(result.credential.hasOwnProperty(myProp)){
+//                        token = result.credential[myProp];
+//                    }
+//                    
+//					// The signed-in user info.
+//					let user = result.user;
+//					console.log(token, user);
+//				}).catch(function(error) {
+//					// Handle Errors here.
+//					alert(error.message);
+//				});
+//			});
+//		}
+//	}
 }

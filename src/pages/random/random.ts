@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 
+import { FormPage } from '../form/form';
+
 @IonicPage()
 @Component({
     selector: 'page-random',
@@ -22,6 +24,20 @@ export class RandomPage {
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad RandomPage');
+    }
+    
+    seeFormType(formType) {
+        this.navCtrl.push(FormPage, {formType: formType});
+    }
+    
+    refreshPoem(refresher) {
+        console.log('Begin async operation', refresher);
+
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            this.newPoem();
+            refresher.complete();
+        }, 1000);
     }
     
     newPoem() {

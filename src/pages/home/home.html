@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="poetry">
         <button ion-button icon-only menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -8,21 +8,31 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+<!--<ion-content padding>-->
+<!--
     <div *ngIf="afAuth.user | async as user; else showLogin">
         <h4>Hello, {{ user.displayName }}!</h4>
     </div>
+-->
+    
+    <blockquote>
+        Poetry is a rhythmical form of words which express an imaginative-emotional-intellectual experience of the writer’s… in such a way that it creates a similar experience in the mind of his reader or listener.
+        <span>Clive Sansom</span>
+    </blockquote>
 
-    <ion-grid>
+    <p id="home-desc" padding>Into Existence enables you to view poetry written by writers everywhere. In the app you can also submit your own poetry by filling out the respected forms. Below are the current poem forms available.</p>
+
+    <ion-grid padding>
         <ion-row>
             <ion-col col-6 *ngFor="let form of forms | async">
-                <button ion-button block color="dark" (click)="seeFormType(form.name)">{{form.name}}</button>
+                <button ion-button outline block color="poetry" (click)="seeFormType(form.name)">{{form.name}}</button>
             </ion-col>
         </ion-row>
 
-        <ion-row><button ion-button block (click)="randomPoem()" color="danger">View a Random Poem</button></ion-row>
+        <ion-row><button ion-button outline block (click)="randomPoem()" color="poetry">View a Random Poem</button></ion-row>
         
-        <ion-row><button ion-button block (click)="allPoems()" color="dark">See All Poems</button></ion-row>
+        <ion-row><button ion-button outline block (click)="allPoems()" color="poetry">See All Poems</button></ion-row>
     </ion-grid>
 
 </ion-content>

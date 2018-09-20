@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="poetry">
         <button ion-button menuToggle="left" start>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -14,10 +14,9 @@
 
 
 <ion-content padding ngClass="selectable">
-
     <ion-card>
         <ion-card-header>
-            <h2>{{ author }}</h2>
+            <h2 ion-text color="poetry">{{ author }}</h2>
             <small>{{ formType }}</small>
         </ion-card-header>
 
@@ -28,5 +27,11 @@
                 </span>
             </p>
         </ion-card-content>
+        
+        <ion-row class="cardfooter">
+            <ion-col>
+                <button ion-button block clear color="poetry" (click)="seeFormType(formType)">{{formType}}</button>
+            </ion-col>
+        </ion-row>
     </ion-card>
 </ion-content>

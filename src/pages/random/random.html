@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="poetry">
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -15,14 +15,28 @@
 
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="refreshPoem($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-down"
+          pullingText="Pull to refresh"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+   
     <ion-card>
         <ion-card-header>
-            <h2>{{ single.title }}</h2>
+            <h2 ion-text color="poetry">{{ single.title }}</h2>
             <small>{{ single.author }}</small>
         </ion-card-header>
 
         <ion-card-content>
             <p *ngFor="let line of single.lines | lines">{{line.value}}</p>
         </ion-card-content>
+        
+        <ion-row class="cardfooter">
+            <ion-col>
+                <button ion-button block clear color="poetry" (click)="seeFormType(single.formType)">{{single.formType}}</button>
+            </ion-col>
+        </ion-row>
     </ion-card>
 </ion-content>
