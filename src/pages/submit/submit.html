@@ -1,13 +1,13 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button icon-only menuToggle>
+    <ion-navbar color="poetry">
+        <button ion-button icon-only menuToggle color="light">
             <ion-icon name="menu"></ion-icon>
         </button>
 
         <ion-title>Submit a Poem</ion-title>
         
         <ion-buttons end>
-        <button ion-button icon-only clear color="dark" (click)="seeDesc(formName)">
+        <button ion-button icon-only clear color="light" (click)="seeDesc(formName)">
             <ion-icon name="md-information-circle"></ion-icon>
         </button>
         </ion-buttons>
@@ -26,8 +26,8 @@
     </ion-item><br>
     
     <p *ngIf="formName == null"><b>Pick a poem form from the options and begin writing.</b></p>
-    <button *ngIf="formName && changeView" ion-button block color="danger" (click)="viewExample()">View Example</button>
-    <button *ngIf="formName && !changeView" ion-button block color="danger" (click)="viewExample()">Hide Example</button>
+    <button *ngIf="formName && changeView" ion-button block color="poetry" (click)="viewExample()">View Example</button>
+    <button *ngIf="formName && !changeView" ion-button block color="poetry" (click)="viewExample()">Hide Example</button>
     
     <div *ngIf="formName && !changeView">
         <ng-container *ngFor="let form of forms | async">

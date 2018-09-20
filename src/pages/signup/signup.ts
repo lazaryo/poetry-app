@@ -29,6 +29,7 @@ export class SignUpPage {
         anon: false,
         displayName: 'John Doe',
         owner: false,
+        mod: false,
         email: '',
         profilePicture: 'https://api.adorable.io/avatars/250/malik.png',
         provider: 'google',

@@ -23,6 +23,8 @@ export class LoginProvider {
         this.newUserInfo = {
             admin: false,
             anon: false,
+            owner: false,
+            mod: false,
             displayName: userVars.displayName,
             email: authInfo.email,
             profilePicture: userVars.profilePicture,
