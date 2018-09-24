@@ -15,17 +15,18 @@
 </ion-header>
 
 <ion-content padding>
-    <p>Submit a poem here with the the given poem formats.</p><br>
+    <p *ngIf="verified">Submit a poem here with the the given poem formats.</p>
+    <p ion-text color="danger" *ngIf="!verified">You cannot submit a poem until your porifle has been verified. Browse the app until then.</p><br>
     
     <!--  Poem Form Type Options  -->
     <ion-item no-padding>
         <ion-label>Form Type</ion-label>
-        <ion-select [(ngModel)]="formName">
+        <ion-select [(ngModel)]="formName" [disabled]="!verified">
             <ion-option *ngFor="let form of forms | async" value={{form.name}}>{{form.name}}</ion-option>
         </ion-select>
     </ion-item><br>
     
-    <p *ngIf="formName == null"><b>Pick a poem form from the options and begin writing.</b></p>
+    <p *ngIf="formName == null && verified == true"><b>Pick a poem form from the options and begin writing.</b></p>
     <button *ngIf="formName && changeView" ion-button block color="poetry" (click)="viewExample()">View Example</button>
     <button *ngIf="formName && !changeView" ion-button block color="poetry" (click)="viewExample()">Hide Example</button>
     
@@ -57,6 +58,7 @@
         <ion-input name="line2" [(ngModel)]="haikuInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
         <ion-input name="line3" [(ngModel)]="haikuInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
         
+        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
         <button ion-button color="dark" block type="submit">Submit</button>
     </form>
     
@@ -78,6 +80,7 @@
         <ion-input name="line11" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 11"></ion-input>
         <ion-input name="line12" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 12"></ion-input>
         
+        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
         <button ion-button color="dark" block type="submit">Submit</button>
     </form>
     
@@ -88,6 +91,7 @@
         
         <ion-textarea rows="10" placeholder="Your thoughts go here"></ion-textarea>
         
+        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
         <button ion-button color="dark" block type="submit">Submit</button>
     </form>
     
@@ -105,6 +109,7 @@
         <ion-input name="line7" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 7"></ion-input>
         <ion-input name="line8" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 8"></ion-input>
         
+        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
         <button ion-button color="dark" block type="submit">Submit</button>
     </form>
 </ion-content>

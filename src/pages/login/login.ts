@@ -46,8 +46,8 @@ export class LoginPage {
     
     loginWithGoogle() {
         console.log('Logging in with Google')
-//        this._lp.signInWithGoogle();
-//        this.loggedInToast();
+        this._lp.signInWithGoogle();
+        this.loggedInToast();
     }
 
     openSignUp() {

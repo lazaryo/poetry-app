@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar color="poetry">
         <ion-title>Your Profile</ion-title>
-        
+
         <ion-buttons end>
             <button ion-button icon-only (click)="enableEdit()" *ngIf="changeInfo == false">
                 <ion-icon name="settings"></ion-icon>
@@ -18,41 +18,39 @@
     <ion-card padding>
         <ion-title *ngIf="!changeInfo">{{info.displayName}}</ion-title>
         <ion-input *ngIf="changeInfo" [(ngModel)]="newName" placeholder={{info.displayName}}></ion-input><br>
-        
-        <!--<p padding-top padding-bottom>Your display name will be used to when writing your poems.</p>-->
-    
+
         <img padding-bottom src={{info.profilePicture}} title={{info.displayName}}>
-    
+
         <button *ngIf="info.owner == true" ion-button outline small color="carrot">Owner</button>
         <button *ngIf="info.admin == true" ion-button outline small color="danger">Admin</button>
-        <button *ngIf="info.mod == true" ion-button outline small color="secondary">Mod</button>
         <button *ngIf="info.verifiedUser == true" ion-button outline small color="primary">Verified</button>
     </ion-card>
-   
+
     <button ion-button block color="dark" (click)="showPoetry()">
         <span *ngIf="!showPoems">See Poems</span>
         <span *ngIf="showPoems">Hide Poems</span>
     </button>
-    
+
     <div *ngIf="showPoems">
         <ion-card>
             <ion-list>
                 <ion-item-sliding *ngFor="let poem of profilePoems | async">
                     <ion-item *ngIf="poem.auid == userID">
+                        <ion-icon name="checkmark" color="secondary" item-start *ngIf="poem.verified"></ion-icon>
+                        <ion-icon name="close" color="danger" item-start *ngIf="!poem.verified"></ion-icon>
                         <p ion-text color="dark">{{poem.title}}</p>
-                        <button ion-button clear item-right color="danger"
-                        (click)="toPoem(poem)">View</button>
+                        <button ion-button clear item-right color="danger" (click)="toPoem(poem)">View</button>
                     </ion-item>
                     <ion-item-options side="left">
                         <button ion-button color="danger" (click)="removePoem(poem)">
                             <ion-icon name="trash"></ion-icon>
                         </button>
                     </ion-item-options>
-                   </ion-item-sliding>
+                </ion-item-sliding>
             </ion-list>
         </ion-card>
     </div>
-    
+
     <div *ngIf="!showPoems">
         <p>Hiding Poems</p>
     </div>

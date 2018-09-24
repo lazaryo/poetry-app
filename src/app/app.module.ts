@@ -13,6 +13,7 @@ import { FormPage } from '../pages/form/form';
 import { SubmitPage } from '../pages/submit/submit';
 import { ProfilePage } from '../pages/profile/profile';
 import { SignUpPage } from '../pages/signup/signup';
+import { AboutPage } from '../pages/about/about';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -44,6 +45,7 @@ export const firebaseConfig = {
         ProfilePage,
         SubmitPage,
         SignUpPage,
+        AboutPage,
         LinesPipe
     ],
     imports: [
@@ -64,6 +66,7 @@ export const firebaseConfig = {
         ProfilePage,
         SubmitPage,
         SignUpPage,
+        AboutPage,
         LoginPage
     ],
     providers: [

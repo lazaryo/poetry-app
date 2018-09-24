@@ -8,14 +8,13 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable()
 export class LoginProvider {
-    private userF: firebase.User;
+//    private userF: firebase.User;
     newUserInfo: any;
     
 	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
-		afAuth.authState.subscribe(user => {
-			this.userF = user;
-		});
-        
+//		afAuth.authState.subscribe(user => {
+//			this.userF = user;
+//		});
 	}
     
     setUserInfo(authInfo, userVars) {
@@ -104,31 +103,51 @@ export class LoginProvider {
 //		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider(), 'google', userVars, true, this.db);
 //    }
 
-//    signInWithGoogle() {
-//		console.log('Sign in with google');
-//		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
-//	}
-//    
-//    private oauthSignIn(provider: AuthProvider) {
-//		if (!(<any>window).cordova) {
-//			return this.afAuth.auth.signInWithPopup(provider);
-//		} else {
-//			return this.afAuth.auth.signInWithRedirect(provider)
-//			.then(() => {
-//				return this.afAuth.auth.getRedirectResult().then( result => {
-//					// This gives you a Google Access Token.
-//					// You can use it to access the Google API.
-//					let token = result.credential.accessToken;
-//					// The signed-in user info.
-//					let user = result.user;
-//					console.log(token, user);
-//				}).catch(function(error) {
-//					// Handle Errors here.
-//					alert(error.message);
-//				});
-//			});
-//		}
-//	}
+    signInWithGoogle() {
+		console.log('Sign in with google');
+		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+	}
+    
+    private oauthSignIn(provider: AuthProvider) {
+		if (!(<any>window).cordova) {
+			return this.afAuth.auth.signInWithPopup(provider).then( result => {
+					// This gives you a Google Access Token.
+					// You can use it to access the Google API.
+					var myProp = 'accessToken';
+                    let token;
+
+                    if(result.credential.hasOwnProperty(myProp)){
+                        token = result.credential[myProp];
+                    }
+					// The signed-in user info.
+					let user = result.user;
+					console.log(token, user);
+				}).catch(function(error) {
+					// Handle Errors here.
+					alert(error.message);
+				});;
+		} else {
+			return this.afAuth.auth.signInWithRedirect(provider)
+			.then(() => {
+				return this.afAuth.auth.getRedirectResult().then( result => {
+					// This gives you a Google Access Token.
+					// You can use it to access the Google API.
+					var myProp = 'accessToken';
+                    let token;
+
+                    if(result.credential.hasOwnProperty(myProp)){
+                        token = result.credential[myProp];
+                    }
+					// The signed-in user info.
+					let user = result.user;
+					console.log(token, user);
+				}).catch(function(error) {
+					// Handle Errors here.
+					alert(error.message);
+				});
+			});
+		}
+	}
 
 //    private oauthSignIn(provider: AuthProvider, signInProvider, userDBInfo, signup, db: AngularFireDatabase) {
 //		if (!(<any>window).cordova) {

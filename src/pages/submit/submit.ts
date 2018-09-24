@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 
@@ -10,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 
 export class SubmitPage {
+    verified: any;
     poems: any;
     forms: Observable<any>;
     poem: any;
@@ -75,14 +77,34 @@ export class SubmitPage {
         disappear: false
     }
     
-    constructor(public navCtrl: NavController, public navParams: NavParams, public _af: AngularFireDatabase, public alertCtrl: AlertController) {
+    constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public _af: AngularFireDatabase,
+    public afAuth: AngularFireAuth,
+    public alertCtrl: AlertController) {
         this.forms = this._af.list('forms').valueChanges();
         this.poems = this._af.list('/poems');
+        
+        this._af.object('users/' + this.navParams.data.userID).valueChanges().subscribe(res => {
+            this.verified = res['verifiedUser'];
+            
+            // setting the author name
+            this.haikuInfo.author = res['displayName'];
+            this.pantoumInfo.author = res['displayName'];
+            this.trioletInfo.author = res['displayName'];
+        });
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad SubmitPage');
-        console.log(this.navParams.data.userID);
+        console.log(this.navParams.data.userID);        
+    }
+    
+    goAnon() {
+        this.haikuInfo.author = '';
+        this.pantoumInfo.author = '';
+        this.trioletInfo.author = '';
     }
     
     seeDesc(formKey, formKeys) {
@@ -154,12 +176,12 @@ export class SubmitPage {
 
     haiku(){
         // if the title input is empty
-        if (this.haikuInfo.title == undefined) {
+        if (this.haikuInfo.title == undefined || this.haikuInfo.title == '') {
             this.haikuInfo.title = "Untitled";
         }
         
         // if the author input is empty
-        if (this.haikuInfo.author == undefined) {
+        if (this.haikuInfo.author == undefined || this.haikuInfo.author == '') {
             this.haikuInfo.author = "Anonymous";
         }
         
@@ -200,12 +222,12 @@ export class SubmitPage {
     
     pantoum(){
         // if the title input is empty
-        if (this.pantoumInfo.title == undefined) {
+        if (this.pantoumInfo.title == undefined || this.pantoumInfo.title == '') {
             this.pantoumInfo.title = "Untitled";
         }
         
         // if the author input is empty
-        if (this.pantoumInfo.author == undefined) {
+        if (this.pantoumInfo.author == undefined || this.pantoumInfo.author == '') {
             this.pantoumInfo.author = "Anonymous";
         }
         
@@ -272,12 +294,12 @@ export class SubmitPage {
     
     triolet(){
         // if the title input is empty
-        if (this.trioletInfo.title == undefined) {
+        if (this.trioletInfo.title == undefined || this.trioletInfo.title == '') {
             this.trioletInfo.title = "Untitled";
         }
         
         // if the author input is empty
-        if (this.trioletInfo.author == undefined) {
+        if (this.trioletInfo.author == undefined || this.trioletInfo.author == '') {
             this.trioletInfo.author = "Anonymous";
         }
         

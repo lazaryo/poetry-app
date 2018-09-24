@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { SinglePage } from '../single/single';
 
@@ -12,6 +13,7 @@ import { SinglePage } from '../single/single';
     templateUrl: 'profile.html',
 })
 export class ProfilePage {
+    poemsRef: any;
     profilePoems: Observable<any>;
     showPoems = false;
     
@@ -33,7 +35,14 @@ export class ProfilePage {
     };
     
     constructor(public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public db: AngularFireDatabase, public alertCtrl: AlertController) {
-        this.profilePoems = this.db.list('poems').valueChanges();
+        this.poemsRef = db.list('poems');
+        // Use snapshotChanges().map() to store the key
+        this.profilePoems = this.poemsRef.snapshotChanges().pipe(
+          map(changes => 
+            changes['map'](c => ({ key: c.payload.key, ...c.payload.val() }))
+          )
+        );
+        
         this.userID = this.afAuth.auth.currentUser.uid;
         this.userInfo = this.db.object('users/' + this.userID).valueChanges();
         this.userInfo.subscribe(ok => {

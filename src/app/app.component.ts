@@ -9,6 +9,7 @@ import { AllPage } from '../pages/all/all';
 import { RandomPage } from '../pages/random/random';
 import { SubmitPage } from '../pages/submit/submit';
 import { LoginPage } from '../pages/login/login';
+import { AboutPage } from '../pages/about/about';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -32,6 +33,7 @@ export class MyApp {
             { title: 'All Poetry', component: AllPage },
             { title: 'Random Poetry', component: RandomPage },
             { title: 'Add a Poem', component: SubmitPage },
+            { title: 'About the App', component: AboutPage },
         ];
         
         this.checkingUser();
