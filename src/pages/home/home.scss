@@ -13,8 +13,8 @@ blockquote {
     margin: 0;
 }
 
-blockquote ::before {
-    font-family: Arial;
+blockquote::before {
+    font-family: Helvetica;
     content: "\201C";
     color: #23BDE7;
     font-size: 2em;
@@ -23,16 +23,18 @@ blockquote ::before {
     top: 12px;
 }
 
-blockquote ::after {
+blockquote::after {
     content: '';
 }
 
-blockquotespan {
-    display: block;
-    color: #333333;
-    font-style: normal;
-    font-weight: bold;
-    margin-top: 1em;
+blockquote {
+    span {
+        display: block;
+        color: #333333;
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 1em;
+    }
 }
 
 #home-desc {

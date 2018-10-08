@@ -22,8 +22,9 @@
 
         <ion-card-content>
             <p ion-text>
-                <span *ngFor="let line of lines | lines">
-                    {{line.value}}<br><br *ngIf="formType == 'Prose'">
+                <span *ngFor="let line of lines | lines as lineCount; let last = last">
+                    {{line.value}}<br>
+                    <br *ngIf="formType == 'Prose' && lineCount.length > 1 && !last">
                 </span>
             </p>
         </ion-card-content>

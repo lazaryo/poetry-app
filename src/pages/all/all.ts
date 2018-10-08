@@ -20,6 +20,7 @@ export class AllPage {
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad AllPage');
+        console.log(this.navParams.get('userID'));
     }
     
     singlePoem(title, author, ft, lines) {

@@ -4,17 +4,18 @@
             <ion-icon name="menu"></ion-icon>
         </button>
 
-        <ion-title>Poetry</ion-title>
+        <ion-title>Into Existence</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-<!--<ion-content padding>-->
 <!--
     <div *ngIf="afAuth.user | async as user; else showLogin">
         <h4>Hello, {{ user.displayName }}!</h4>
     </div>
 -->
+
+<!--    <pre>{{cui | json}}</pre>-->
     
     <blockquote>
         Poetry is a rhythmical form of words which express an imaginative-emotional-intellectual experience of the writer’s… in such a way that it creates a similar experience in the mind of his reader or listener.
@@ -34,5 +35,4 @@
         
         <ion-row><button ion-button outline block (click)="allPoems()" color="poetry">See All Poems</button></ion-row>
     </ion-grid>
-
 </ion-content>

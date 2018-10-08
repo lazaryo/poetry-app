@@ -5,13 +5,14 @@ import AuthProvider = firebase.auth.AuthProvider;
 import { AngularFireDatabase } from '@angular/fire/database';
 //import { Observable } from 'rxjs';
 //import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class LoginProvider {
 //    private userF: firebase.User;
     newUserInfo: any;
     
-	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
+	constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, public storage: Storage) {
 //		afAuth.authState.subscribe(user => {
 //			this.userF = user;
 //		});
@@ -43,8 +44,11 @@ export class LoginProvider {
             
             let currentuser = response.user.uid
             window.localStorage.setItem('currentuser', currentuser);
+            this.storage.set('currentuser', currentuser);
+            
             let provider = 'email';
             window.localStorage.setItem('provider', provider);
+            this.storage.set('provider', provider);
         })
         .catch(function(error) {
             // Handle Errors here.
@@ -61,9 +65,11 @@ export class LoginProvider {
             console.log(newUser.uid);
             
             let currentuser = newUser.uid
-            window.localStorage.setItem('currentuser', currentuser);
+//            window.localStorage.setItem('currentuser', currentuser);
+            this.storage.set('currentuser', currentuser);
             let provider = 'email';
-            window.localStorage.setItem('provider', provider);
+//            window.localStorage.setItem('provider', provider);
+            this.storage.set('provider', provider);
             
             userVars.displayName = enp.name;
             userVars.email = enp.email;
@@ -105,10 +111,10 @@ export class LoginProvider {
 
     signInWithGoogle() {
 		console.log('Sign in with google');
-		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider(), 'google');
 	}
     
-    private oauthSignIn(provider: AuthProvider) {
+    private oauthSignIn(provider: AuthProvider, providerType) {
 		if (!(<any>window).cordova) {
 			return this.afAuth.auth.signInWithPopup(provider).then( result => {
 					// This gives you a Google Access Token.
@@ -116,12 +122,16 @@ export class LoginProvider {
 					var myProp = 'accessToken';
                     let token;
 
-                    if(result.credential.hasOwnProperty(myProp)){
+                    if (result.credential.hasOwnProperty(myProp)) {
                         token = result.credential[myProp];
                     }
+                
 					// The signed-in user info.
 					let user = result.user;
-					console.log(token, user);
+                    this.storage.set('currentuser', user.uid);
+                    this.storage.set('provider', providerType);
+                
+                    console.log('Token:', token);
 				}).catch(function(error) {
 					// Handle Errors here.
 					alert(error.message);
@@ -140,7 +150,10 @@ export class LoginProvider {
                     }
 					// The signed-in user info.
 					let user = result.user;
-					console.log(token, user);
+					this.storage.set('currentuser', user.uid);
+                    this.storage.set('provider', providerType);
+                
+                    console.log('Token:', token);
 				}).catch(function(error) {
 					// Handle Errors here.
 					alert(error.message);

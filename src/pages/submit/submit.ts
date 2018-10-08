@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class SubmitPage {
     formName: any;
     formDesc: any;
     examples: any;
+    paragraphs: any;
     changeView = true;
     haikuInfo = {
             title: '',
@@ -77,9 +79,21 @@ export class SubmitPage {
         disappear: false
     }
     
+    proseInfo = {
+        title: '',
+        author: '',
+        lines: {},
+        formType: 'Prose',
+        verified: false,
+        // this would be a variable in production
+        auid: this.navParams.get('userID'),
+        disappear: false
+    }
+    
     constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public storage: Storage,
     public _af: AngularFireDatabase,
     public afAuth: AngularFireAuth,
     public alertCtrl: AlertController) {
@@ -92,18 +106,19 @@ export class SubmitPage {
             // setting the author name
             this.haikuInfo.author = res['displayName'];
             this.pantoumInfo.author = res['displayName'];
+            this.proseInfo.author = res['displayName'];
             this.trioletInfo.author = res['displayName'];
         });
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad SubmitPage');
-        console.log(this.navParams.data.userID);        
     }
     
     goAnon() {
         this.haikuInfo.author = '';
         this.pantoumInfo.author = '';
+        this.proseInfo.author = '';
         this.trioletInfo.author = '';
     }
     
@@ -143,35 +158,6 @@ export class SubmitPage {
     
     viewExample() {
         this.changeView = !this.changeView;
-//        let title, subTitle;
-//        
-//        switch(name) {
-//            case 'Haiku':
-//                title = name + ' Example';
-//                subTitle = name;
-//                break;
-//            case 'Pantoum':
-//                title = name + ' Example';
-//                subTitle = name;
-//                break;
-//            case 'Prose':
-//                title = name + ' Example';
-//                subTitle = name;
-//                break;
-//            case 'Triolet':
-//                title = name + ' Example';
-//                subTitle = name;
-//            default:
-//                title = name;
-//                subTitle = name;
-//        }
-//        
-//        const alert = this.alertCtrl.create({
-//            title: title,
-//            subTitle: subTitle,
-//            buttons: ['OK']
-//        });
-//        alert.present();        
     }
 
     haiku(){
@@ -285,11 +271,51 @@ export class SubmitPage {
         }
     }
     
-    prose(title, author, content){
-        console.log(title);
-        console.log(author);
-        console.log(content);
-        console.log(this.navParams.get('userID'));
+    prose() {
+        // if the title input is empty
+        if (this.proseInfo.title == undefined || this.proseInfo.title == '') {
+            this.proseInfo.title = "Untitled";
+        }
+        
+        // if the author input is empty
+        if (this.proseInfo.author == undefined || this.proseInfo.author == '') {
+            this.proseInfo.author = "Anonymous";
+        }
+        
+        var sections = this.paragraphs.split(/\n/);
+        var paragraphs = [];
+        for (var i = 0; i < sections.length; i++) {
+            if (/\S/.test(sections[i])) {
+                paragraphs.push(sections[i].trim());
+            }
+        }
+        
+        var lines = {};
+        i = 0;
+        
+        while (i < paragraphs.length) {
+            let j = i + 1;
+            var newProp = 'line' + j;
+            lines[newProp] = paragraphs[i];
+            i++;
+        }
+        
+        this.proseInfo.lines = lines;
+        
+        this.poems.push(this.proseInfo);
+        console.log('Pushed ' + this.proseInfo.title + ' by ' + this.proseInfo.author + ' to the database!');
+        this.proseInfo = {
+            title: '',
+            author: '',
+            lines: {},
+            formType: 'Prose',
+            verified: false,
+            // this would be a variable in production
+            auid: this.navParams.get('userID'),
+            disappear: false
+        }
+        
+        this.paragraphs = '';
     }
     
     triolet(){

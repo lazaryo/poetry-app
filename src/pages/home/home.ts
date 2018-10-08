@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 import { RandomPage } from '../random/random';
 import { AllPage } from '../all/all';
@@ -15,15 +16,37 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
     forms: Observable<any[]>;
-    daily: Observable<any>;
     message: any;
+    
+    cui = {
+        id: '',
+        provider: ''
+    }
 
-    constructor(public navCtrl: NavController, public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
-        this.forms = this.db.list('/forms').valueChanges();
+    constructor(
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public afAuth: AngularFireAuth,
+        public db: AngularFireDatabase,
+        private storage: Storage) {
+            
+            this.forms = this.db.list('/forms').valueChanges();
     }
     
     ionViewDidLoad() {
         console.log('ionViewDidLoad HomePage');
+        
+        this.storage.get('currentuser').then((val) => {
+            console.log('The current user\'s ID:', val);
+            this.cui.id = val;
+        });
+            
+        this.storage.get('provider').then((val) => {
+            console.log('The current user\'s provider:', val);
+            this.cui.provider = val;
+        });
+        
+        console.log(this.navParams.get('currentuser'));
         
 //        this.afAuth.authState.subscribe((user) => {
 //            var ref = this.db.database.ref("users/" + user.uid);

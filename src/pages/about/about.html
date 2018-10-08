@@ -4,11 +4,26 @@
             <ion-icon name="menu"></ion-icon>
         </button>
 
-        <ion-title>About Poetry</ion-title>
+        <ion-title>{{about.title}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <h3>Poetry App</h3>
-    <p>This is the About page for the Poetry App.</p>
+    <ion-card>
+        <ion-item>
+            <h2>App Version</h2>
+            <p>{{about.version}}</p>
+        </ion-item>
+        
+        <ion-item>
+            <h2>Some Information</h2>
+            <p>{{about.body}}</p>
+        </ion-item>
+        
+        <ion-item>
+            <h2>Technologies</h2>
+            <p>Below is a list of technologies used to make this app possible.</p>
+            <pre>{{about.technologies | json}}</pre>
+        </ion-item>
+    </ion-card>
 </ion-content>

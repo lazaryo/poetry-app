@@ -5,11 +5,11 @@
         </button>
 
         <ion-title>Submit a Poem</ion-title>
-        
+
         <ion-buttons end>
-        <button ion-button icon-only clear color="light" (click)="seeDesc(formName)">
-            <ion-icon name="md-information-circle"></ion-icon>
-        </button>
+            <button ion-button icon-only clear color="light" (click)="seeDesc(formName)">
+                <ion-icon name="md-information-circle"></ion-icon>
+            </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -17,7 +17,7 @@
 <ion-content padding>
     <p *ngIf="verified">Submit a poem here with the the given poem formats.</p>
     <p ion-text color="danger" *ngIf="!verified">You cannot submit a poem until your porifle has been verified. Browse the app until then.</p><br>
-    
+
     <!--  Poem Form Type Options  -->
     <ion-item no-padding>
         <ion-label>Form Type</ion-label>
@@ -25,11 +25,11 @@
             <ion-option *ngFor="let form of forms | async" value={{form.name}}>{{form.name}}</ion-option>
         </ion-select>
     </ion-item><br>
-    
+
     <p *ngIf="formName == null && verified == true"><b>Pick a poem form from the options and begin writing.</b></p>
     <button *ngIf="formName && changeView" ion-button block color="poetry" (click)="viewExample()">View Example</button>
     <button *ngIf="formName && !changeView" ion-button block color="poetry" (click)="viewExample()">Hide Example</button>
-    
+
     <div *ngIf="formName && !changeView">
         <ng-container *ngFor="let form of forms | async">
             <ion-card *ngIf="formName == form.name">
@@ -48,68 +48,76 @@
             </ion-card>
         </ng-container>
     </div>
-    
+
     <!--  Haiku Form  -->
     <form id="haikuF" *ngIf="formName == 'Haiku' && changeView" (ngSubmit)="haiku()">
-        <ion-input name="title" [(ngModel)]="haikuInfo.title" type="text" placeholder="Title"></ion-input>
-        <ion-input name="author" [(ngModel)]="haikuInfo.author" type="text" placeholder="Author"></ion-input>
-        
-        <ion-input name="line1" [(ngModel)]="haikuInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
-        <ion-input name="line2" [(ngModel)]="haikuInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
-        <ion-input name="line3" [(ngModel)]="haikuInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
-        
-        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
-        <button ion-button color="dark" block type="submit">Submit</button>
+        <fieldset [disabled]="!verified">
+            <ion-input name="title" [(ngModel)]="haikuInfo.title" type="text" placeholder="Title"></ion-input>
+            <ion-input name="author" [(ngModel)]="haikuInfo.author" type="text" placeholder="Author"></ion-input>
+
+            <ion-input name="line1" [(ngModel)]="haikuInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
+            <ion-input name="line2" [(ngModel)]="haikuInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
+            <ion-input name="line3" [(ngModel)]="haikuInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
+
+            <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
+            <button ion-button color="dark" block type="submit">Submit</button>
+        </fieldset>
     </form>
-    
+
     <!--  Pantoum Form  -->
     <form *ngIf="formName == 'Pantoum' && changeView" (ngSubmit)="pantoum()">
-        <ion-input name="title" [(ngModel)]="pantoumInfo.title" type="text" placeholder="Title"></ion-input>
-        <ion-input name="author" [(ngModel)]="pantoumInfo.author" type="text" placeholder="Author"></ion-input>
+        <fieldset [disabled]="!verified">
+            <ion-input name="title" [(ngModel)]="pantoumInfo.title" type="text" placeholder="Title"></ion-input>
+            <ion-input name="author" [(ngModel)]="pantoumInfo.author" type="text" placeholder="Author"></ion-input>
 
-        <ion-input name="line1" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
-        <ion-input name="line2" [(ngModel)]="pantoumInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
-        <ion-input name="line3" [(ngModel)]="pantoumInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
-        <ion-input name="line4" [(ngModel)]="pantoumInfo.lines.line4" type="text" placeholder="Line 4"></ion-input>
-        <ion-input name="line5" [(ngModel)]="pantoumInfo.lines.line2" type="text" placeholder="Line 5"></ion-input>
-        <ion-input name="line6" [(ngModel)]="pantoumInfo.lines.line6" type="text" placeholder="Line 6"></ion-input>
-        <ion-input name="line7" [(ngModel)]="pantoumInfo.lines.line4" type="text" placeholder="Line 7"></ion-input>
-        <ion-input name="line8" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 8"></ion-input>
-        <ion-input name="line9" [(ngModel)]="pantoumInfo.lines.line6" type="text" placeholder="Line 9"></ion-input>
-        <ion-input name="line10" [(ngModel)]="pantoumInfo.lines.line3" type="text" placeholder="Line 10"></ion-input>
-        <ion-input name="line11" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 11"></ion-input>
-        <ion-input name="line12" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 12"></ion-input>
-        
-        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
-        <button ion-button color="dark" block type="submit">Submit</button>
+            <ion-input name="line1" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
+            <ion-input name="line2" [(ngModel)]="pantoumInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
+            <ion-input name="line3" [(ngModel)]="pantoumInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
+            <ion-input name="line4" [(ngModel)]="pantoumInfo.lines.line4" type="text" placeholder="Line 4"></ion-input>
+            <ion-input name="line5" [(ngModel)]="pantoumInfo.lines.line2" type="text" placeholder="Line 5"></ion-input>
+            <ion-input name="line6" [(ngModel)]="pantoumInfo.lines.line6" type="text" placeholder="Line 6"></ion-input>
+            <ion-input name="line7" [(ngModel)]="pantoumInfo.lines.line4" type="text" placeholder="Line 7"></ion-input>
+            <ion-input name="line8" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 8"></ion-input>
+            <ion-input name="line9" [(ngModel)]="pantoumInfo.lines.line6" type="text" placeholder="Line 9"></ion-input>
+            <ion-input name="line10" [(ngModel)]="pantoumInfo.lines.line3" type="text" placeholder="Line 10"></ion-input>
+            <ion-input name="line11" [(ngModel)]="pantoumInfo.lines.line8" type="text" placeholder="Line 11"></ion-input>
+            <ion-input name="line12" [(ngModel)]="pantoumInfo.lines.line1" type="text" placeholder="Line 12"></ion-input>
+
+            <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
+            <button ion-button color="dark" block type="submit">Submit</button>
+        </fieldset>
     </form>
-    
+
     <!--  Prose Form  -->
-    <form id="proseF" *ngIf="formName == 'Prose' && changeView" (ngSubmit)="prose(proseT, proseA, proseM)">
-        <ion-input name="title" [(ngModel)]="proseT" type="text" placeholder="Title"></ion-input>
-        <ion-input name="author" [(ngModel)]="proseA" type="text" placeholder="Author"></ion-input>
-        
-        <ion-textarea rows="10" placeholder="Your thoughts go here"></ion-textarea>
-        
-        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
-        <button ion-button color="dark" block type="submit">Submit</button>
+    <form id="proseF" *ngIf="formName == 'Prose' && changeView" (ngSubmit)="prose()">
+        <fieldset [disabled]="!verified">
+            <ion-input name="title" [(ngModel)]="proseInfo.title" type="text" placeholder="Title"></ion-input>
+            <ion-input name="author" [(ngModel)]="proseInfo.author" type="text" placeholder="Author"></ion-input>
+
+            <ion-textarea name="paragraphs" [(ngModel)]="paragraphs" rows="10" placeholder="Your thoughts go here"></ion-textarea>
+
+            <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
+            <button ion-button color="dark" block type="submit">Submit</button>
+        </fieldset>
     </form>
-    
+
     <!--  Triolet Form  -->
     <form *ngIf="formName == 'Triolet' && changeView" (ngSubmit)="triolet()">
-        <ion-input name="title" type="text" [(ngModel)]="trioletInfo.title" placeholder="Title"></ion-input>
-        <ion-input name="author" type="text" [(ngModel)]="trioletInfo.author" placeholder="Author"></ion-input>
-        
-        <ion-input name="line1" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
-        <ion-input name="line2" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
-        <ion-input name="line3" [(ngModel)]="trioletInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
-        <ion-input name="line4" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 4"></ion-input>
-        <ion-input name="line5" [(ngModel)]="trioletInfo.lines.line5" type="text" placeholder="Line 5"></ion-input>
-        <ion-input name="line6" [(ngModel)]="trioletInfo.lines.line6" type="text" placeholder="Line 6"></ion-input>
-        <ion-input name="line7" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 7"></ion-input>
-        <ion-input name="line8" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 8"></ion-input>
-        
-        <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
-        <button ion-button color="dark" block type="submit">Submit</button>
+        <fieldset [disabled]="!verified">
+            <ion-input name="title" type="text" [(ngModel)]="trioletInfo.title" placeholder="Title"></ion-input>
+            <ion-input name="author" type="text" [(ngModel)]="trioletInfo.author" placeholder="Author"></ion-input>
+
+            <ion-input name="line1" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 1"></ion-input>
+            <ion-input name="line2" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 2"></ion-input>
+            <ion-input name="line3" [(ngModel)]="trioletInfo.lines.line3" type="text" placeholder="Line 3"></ion-input>
+            <ion-input name="line4" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 4"></ion-input>
+            <ion-input name="line5" [(ngModel)]="trioletInfo.lines.line5" type="text" placeholder="Line 5"></ion-input>
+            <ion-input name="line6" [(ngModel)]="trioletInfo.lines.line6" type="text" placeholder="Line 6"></ion-input>
+            <ion-input name="line7" [(ngModel)]="trioletInfo.lines.line1" type="text" placeholder="Line 7"></ion-input>
+            <ion-input name="line8" [(ngModel)]="trioletInfo.lines.line2" type="text" placeholder="Line 8"></ion-input>
+
+            <button ion-button margin-bottom color="light" block (click)="goAnon()" type="button">Go Anonymous</button>
+            <button ion-button color="dark" block type="submit">Submit</button>
+        </fieldset>
     </form>
 </ion-content>
